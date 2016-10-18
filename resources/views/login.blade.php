@@ -3,7 +3,6 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>Music4ME | Log in</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -26,6 +25,7 @@
   <![endif]-->
 </head>
 <body class="hold-transition login-page">
+@include('general.alert')
 <div class="login-box">
   <div class="login-logo">
     <a href="/"><b>Music</b>4ME</a>
@@ -34,13 +34,13 @@
   <div class="login-box-body">
     <p class="login-box-msg">Đăng nhập để bắt đầu phiên làm việc của bạn</p>
 
-    <form action="" method="post">
-      <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Email">
+    <div>
+      <div id="div_email" class="form-group has-feedback">
+        <input id="ip_email" type="email" class="form-control" placeholder="Email của bạn">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
-      <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password">
+      <div id="div_password" class="form-group has-feedback">
+        <input id="ip_password" type="password" class="form-control" placeholder="Mật khẩu">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
@@ -57,7 +57,7 @@
         </div>
         <!-- /.col -->
       </div>
-    </form>
+    </div>
     <!-- /.social-auth-links -->
 
     <a href="#">Quên mật khẩu</a><br>
@@ -84,11 +84,41 @@
       increaseArea: '20%' // optional
     });
   });
-  var token = $('meta[name="csrf-token"]').attr('content');
-  console.log(token);
   function login(){
-    var login = new Login('admin','123');
-    login.login();
+    var email = $('#ip_email').val();
+    var password = $('#ip_password').val();
+    var login = new Login(email,password);
+    login.login(function(success,data){
+      $('#div_email').removeClass('has-error');
+      $('#div_password').removeClass('has-error');
+      if (success) {
+        localStorage.setItem("api_token", data.api_token);
+        sessionStorage.setItem("hello_message", data.name);
+
+        location.replace("/");
+      }
+      else{
+        if (data.status == 422) {
+          var e = data.responseJSON;
+          var body = '';
+          Object.keys(e.data).forEach(function(key) {
+            if (key == 'email') {
+              $('#div_email').addClass('has-error');
+            }
+            if (key == 'password') {
+              $('#div_password').addClass('has-error');
+            }
+            e.data[key].forEach(function(str){
+              body += str + '<br>';
+            });
+          });
+          showAlertD('Lỗi xác nhận', body,6000);
+        } else {
+          showAlertD('Error', 'Message');
+          
+        }
+      }
+    })
   }
 </script>
 </body>

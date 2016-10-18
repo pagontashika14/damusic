@@ -21,3 +21,9 @@
         <h4>Hello</h4>
     </section>
 @stop
+
+@push('scripts')
+  <script>
+    
+  </script>
+@endpush

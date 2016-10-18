@@ -33,6 +33,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <![endif]-->
 </head>
 <body class="hold-transition skin-purple sidebar-mini">
+@include('general.alert')
 <div class="wrapper">
   <!-- Main Header -->
   @include('layouts.header')
@@ -74,5 +75,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
      user experience. Slimscroll is required when using the
      fixed layout. -->
 <script src="{{ asset('slim-scroll/jquery.slimscroll.min.js',env('HTTPS_ASSET')) }}"></script>
+<script src="{{ asset('js/helper.js',env('HTTPS_ASSET')) }}"></script>
+@stack('scripts')
 </body>
 </html>

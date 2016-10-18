@@ -127,7 +127,7 @@
 						<li class="user-header">
 							<img src="{{ asset('admin-lte/dist/img/avatar.png',env('HTTPS_ASSET')) }}" class="img-circle" alt="User Image">
 							<p>
-								Khách vãng lai
+								<span id="user_name">Khách vãng lai</span>
 								<small>Guest</small>
 							</p>
 						</li>
@@ -149,3 +149,33 @@
 		</div>
 	</nav>
 </header>
+
+@push('scripts')
+  <script>
+    var user_name = sessionStorage.hello_message;
+    if (user_name != null) {
+      showAlertS('Xin chào ' + user_name,'Chúc bạn một ngày tốt lành');
+      sessionStorage.removeItem('hello_message');
+    }
+    var api_token = localStorage.api_token;
+    if (api_token != null) {
+      $.ajax({
+        url: '/api/user',
+        type: 'GET',
+        data: {api_token: api_token},
+      })
+      .done(function(result) {
+        console.log(result);
+        $('#user_name').html(result.name);
+        var role = GetHightestRole(result.roles);
+        console.log(role);
+      })
+      .fail(function(result) {
+        console.log(result);
+      })
+      .always(function() {
+        
+      }); 
+    }
+  </script>
+@endpush
