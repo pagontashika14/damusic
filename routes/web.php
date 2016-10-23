@@ -18,3 +18,7 @@ Route::get('/', function () {
 Route::get('/login', function () {
     return view('login');
 });
+
+Route::get('/songs/{code}', function($code){
+	return response()->file(storage_path('app/'.$code.'.mp3'));
+});

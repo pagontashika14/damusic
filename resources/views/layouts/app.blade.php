@@ -19,11 +19,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{asset('ionicons/css/ionicons.min.css',env('HTTPS_ASSET'))}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('admin-lte/dist/css/AdminLTE.min.css',env('HTTPS_ASSET'))}}">
+  <!-- Bootstrap Slider -->
+  <link rel="stylesheet" href="{{asset('bootstrap-slider/css/bootstrap-slider.min.css',env('HTTPS_ASSET'))}}">
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect.
   -->
   <link rel="stylesheet" href="{{asset('admin-lte/dist/css/skins/skin-purple.min.css',env('HTTPS_ASSET'))}}">
+
+  @stack('styles')
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -61,12 +65,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 <!-- ./wrapper -->
 
+
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- jQuery 2.2.3 -->
 <script src="{{asset('js/jquery-3.1.1.min.js',env('HTTPS_ASSET'))}}"></script>
-<!-- Bootstrap 3.3.6 -->
+<!-- Bootstrap 3.3.7 -->
 <script src="{{asset('bootstrap/js/bootstrap.min.js',env('HTTPS_ASSET'))}}"></script>
+<script src="{{asset('bootstrap-slider/bootstrap-slider.min.js',env('HTTPS_ASSET'))}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('admin-lte/dist/js/app.min.js',env('HTTPS_ASSET'))}}"></script>
 
@@ -76,6 +82,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
      fixed layout. -->
 <script src="{{ asset('slim-scroll/jquery.slimscroll.min.js',env('HTTPS_ASSET')) }}"></script>
 <script src="{{ asset('js/helper.js',env('HTTPS_ASSET')) }}"></script>
+<script src="{{asset('audio-player/audio-player.js',env('HTTPS_ASSET'))}}"></script>
+<script type="text/javascript">
+  
+</script>
 @stack('scripts')
 </body>
 </html>

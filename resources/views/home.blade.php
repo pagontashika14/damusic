@@ -19,9 +19,9 @@
 @section('content')
   <section class="content">
     <div class="row">
-      <div class="col-md-9">
+      <div class="col-md-8">
         <!-- The time line -->
-        <ul class="timeline">
+        <ul class="timeline" style="margin-bottom: 50px;">
           <!-- timeline time label -->
           <li class="time-label">
             <span class="bg-red">
@@ -36,10 +36,12 @@
               <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
               <h3 class="timeline-header"><a href="#">Dương Tuấn Đạt</a> shared a song</h3>
               <div class="timeline-body">
-                <audio style="width: 100%;" controls>
-                  <source src="http://mp3.zing.vn/download/song/Em-Toi-Anh-Khang-Thuy-Chi/ZmxnTkmadRDNBkkTLFJyDmkH" type="audio/mpeg">
-                Your browser does not support the audio element.
-                </audio>
+                <div>Một giọng ca sâu lắng và trìu mến...</div>
+                <div id="player1" style="margin-top: 10px; margin-bottom: 10px;"></div>
+                <div style="text-align: center;">
+                  <div style="font-size: 20px; margin-right: 5px; margin-left: 5px;">Em Tôi</div>
+                  <div style="color: #721799;">Anh Khang - Thùy Chi</div>
+                </div>
               </div>
               <div class="timeline-footer">
                 <a class="btn btn-primary btn-xs">Read more</a>
@@ -54,106 +56,85 @@
 
             <div class="timeline-item">
               <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
-
               <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request</h3>
-            </div>
-          </li>
-          <!-- END timeline item -->
-          <!-- timeline item -->
-          <li>
-            <i class="fa fa-comments bg-yellow"></i>
-
-            <div class="timeline-item">
-              <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
-
-              <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-
               <div class="timeline-body">
-                Take me to your leader!
-                Switzerland is small and neutral!
-                We are more like Germany, ambitious and misunderstood!
-              </div>
-              <div class="timeline-footer">
-                <a class="btn btn-warning btn-flat btn-xs">View comment</a>
+                <div id="player2" style="margin-top: 10px; margin-bottom: 10px;"></div>
               </div>
             </div>
           </li>
           <!-- END timeline item -->
-          <!-- timeline time label -->
-          <li class="time-label">
-            <span class="bg-green">
-              3 Jan. 2014
-            </span>
-          </li>
-          <!-- /.timeline-label -->
-          <!-- timeline item -->
-          <li>
-            <i class="fa fa-camera bg-purple"></i>
-
-            <div class="timeline-item">
-              <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
-
-              <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-
-              <div class="timeline-body">
-                <img src="http://placehold.it/150x100" alt="..." class="margin">
-                <img src="http://placehold.it/150x100" alt="..." class="margin">
-                <img src="http://placehold.it/150x100" alt="..." class="margin">
-                <img src="http://placehold.it/150x100" alt="..." class="margin">
-              </div>
-            </div>
-          </li>
-          <!-- END timeline item -->
-          <!-- timeline item -->
-          <li>
-            <i class="fa fa-video-camera bg-maroon"></i>
-
-            <div class="timeline-item">
-              <span class="time"><i class="fa fa-clock-o"></i> 5 days ago</span>
-
-              <h3 class="timeline-header"><a href="#">Mr. Doe</a> shared a video</h3>
-
-              <div class="timeline-body">
-                <div class="embed-responsive embed-responsive-16by9">
-                  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/tMWkeBIohBs" frameborder="0" allowfullscreen=""></iframe>
-                </div>
-              </div>
-              <div class="timeline-footer">
-                <a href="#" class="btn btn-xs bg-maroon">See comments</a>
-              </div>
-            </div>
-          </li>
-          <!-- END timeline item -->
+          
           <li>
             <i class="fa fa-clock-o bg-gray"></i>
           </li>
         </ul>
       </div>
       <!-- /.col -->
-      <div class="col-md-3">
-        <div class="box box-success box-solid">
-          <div class="box-header with-border">
-            <h3 class="box-title">Có thể bạn muốn nghe</h3>
-          </div>
-          <div class="box-body">
-            The body of the box
-          </div>
-        </div>
-        <div class="box box-danger box-solid">
-          <div class="box-header with-border">
-            <h3 class="box-title">Bảng xếp hạng</h3>
-          </div>
-          <div class="box-body">
-            The body of the box
+      <div class="col-md-4 row">
+        <div class="col-md-12 col-sm-6 col-xs-12">
+          <div class="box box-success box-solid">
+            <div class="box-header with-border">
+              <h3 class="box-title">Có thể bạn muốn nghe</h3>
+            </div>
+            <div class="box-body">
+              The body of the box
+            </div>
           </div>
         </div>
+        <div class="col-md-12 col-sm-6 col-xs-12">
+          <div class="box box-danger box-solid">
+            <div class="box-header with-border">
+              <h3 class="box-title">Bảng xếp hạng</h3>
+            </div>
+            <div class="box-body">
+              The body of the box
+            </div>
+          </div>
+        </div>
+        
       </div>
     </div>
   </section>
 @stop
 
+@push('styles')
+  <style type="text/css">
+    .slider-selection {
+      background: #9600FF;
+    }
+    @media screen and (max-width: 480px) {
+      .div-volume { 
+        display:none !important;
+      }
+    }
+  </style>
+@endpush
+
 @push('scripts')
   <script>
+    var audio_player = new AudioPlayer({
+      skin : 'audio-single',
+      div_player : $('#player1'),
+      code : '222',
+      srcs : [{
+              code : 'em-toi',
+              src : '{{env('APP_URL')}}'+'/songs/em-toi'
+            },{
+              code : 'will-think-of-you',
+              src : '{{env('APP_URL')}}'+'/songs/will-think-of-you'
+            }]
+    });
 
+    var audio_player2 = new AudioPlayer({
+      skin : 'audio-single',
+      div_player : $('#player2'),
+      code : '223',
+      srcs : [{
+              code : 'will-think-of-you',
+              src : '{{env('APP_URL')}}'+'/songs/will-think-of-you'
+            }]
+    });
+
+    var audio_controler = new AudioControler([audio_player,audio_player2]);
   </script>
 @endpush

@@ -34,6 +34,8 @@
 					<i class="fa fa-home"></i>
 					<span>Trang chủ</span>
 				</a>
+			</li>
+			<li>
 				<a href="#">
 					<i class="fa fa-gift"></i>
 					<span>Được đề xuất</span>

@@ -165,10 +165,8 @@
         data: {api_token: api_token},
       })
       .done(function(result) {
-        console.log(result);
         $('#user_name').html(result.name);
         var role = GetHightestRole(result.roles);
-        console.log(role);
       })
       .fail(function(result) {
         console.log(result);
