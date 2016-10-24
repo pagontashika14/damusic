@@ -6,6 +6,7 @@ function AudioPlayer (options){
 	this.srcs = options.srcs;
 	this.code = options.code;
 	var isDragTimeSlider = false;
+	var isPlaying = false;
 	function BtnToPlay(){
 		_self.btn_play.attr('class', 'fa fa-pause');
 		_self.btn_play.attr('style', 'font-size: 16.5px;');
@@ -49,7 +50,6 @@ function AudioPlayer (options){
 		return undefined;
 	}
 	function IsLastOrder(code){
-		console.log(GetOrderIndex(code));
 		return GetOrderIndex(code) == _self.orders.length - 1;
 	}
 	function GetNextMp3(code){
@@ -171,10 +171,13 @@ function AudioPlayer (options){
 					_self.currentCode = mp3.code;
 					_self.audio.play();
 				}
-				
 			}
 		}
+		if (_self.currentCode != undefined && isPlaying == false) {
+			_self.load(GetMp3(_self.currentCode).src);
+		}
 		_self.audio.play();
+		isPlaying = true;
 	}
 
 	this.pause = function(){
@@ -183,7 +186,7 @@ function AudioPlayer (options){
 	}
 
 	this.stop = function(){
-		_self.audio.currentTime = 0;
+		isPlaying = false;
 		BtnToPause();
 		_self.time_slider.slider('setValue', 0);
 	}
