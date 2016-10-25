@@ -4,8 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Permission extends Model
+class Singer extends Model
 {
     public $timestamps = false;
-    protected $fillable = ['name', 'display_name'];
 }

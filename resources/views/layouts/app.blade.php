@@ -26,6 +26,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         apply the skin class to the body tag so the changes take effect.
   -->
   <link rel="stylesheet" href="{{asset('admin-lte/dist/css/skins/skin-purple.min.css',env('HTTPS_ASSET'))}}">
+  <link rel="stylesheet" href="{{asset('admin-lte/dist/css/skins/skin-red-light.min.css',env('HTTPS_ASSET'))}}">
 
   @stack('styles')
 
@@ -36,7 +37,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body class="hold-transition skin-purple sidebar-mini">
+{{-- <body class="hold-transition skin-purple sidebar-mini sidebar-collapse"> --}}
+<body class="hold-transition skin-red-light sidebar-mini sidebar-collapse">
 @include('general.alert')
 <div class="wrapper">
   <!-- Main Header -->

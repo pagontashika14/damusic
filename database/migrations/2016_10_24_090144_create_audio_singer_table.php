@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePermissionRoleTable extends Migration
+class CreateAudioSingerTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreatePermissionRoleTable extends Migration
      */
     public function up()
     {
-        Schema::create('permission_role', function (Blueprint $table) {
+        Schema::create('audio_singer', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('role_id')->references('id')->on('roles');
-            $table->integer('permission_id')->references('id')->on('permissions');
-            $table->unique(['role_id','permission_id']);
+            $table->integer('audio_id')->references('id')->on('audios');
+            $table->integer('singer_id')->references('id')->on('singers');
+            $table->unique(['audio_id','singer_id']);
         });
     }
 
@@ -28,6 +28,6 @@ class CreatePermissionRoleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permission_role');
+        Schema::dropIfExists('audio_singer');
     }
 }

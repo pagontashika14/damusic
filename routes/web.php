@@ -19,6 +19,8 @@ Route::get('/login', function () {
     return view('login');
 });
 
-Route::get('/songs/{code}', function($code){
-	return response()->file(storage_path('app/'.$code.'.mp3'));
+Route::get('/audios/{code}', function($code){
+	return response()->file(storage_path('app/audios'.$code.'.mp3'));
 });
+
+Route::get('/images/{code}','ImageController@index');

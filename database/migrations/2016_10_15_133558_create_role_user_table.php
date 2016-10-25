@@ -17,6 +17,7 @@ class CreateRoleUserTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->references('id')->on('users');
             $table->integer('role_id')->references('id')->on('roles');
+            $table->unique(['user_id','role_id']);
         });
     }
 

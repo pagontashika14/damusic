@@ -30,3 +30,7 @@ Route::get('test',function (){
 });
 Route::post('login','UserController@login');
 Route::post('register','UserController@register');
+Route::group(['prefix' => 'upload'], function () {
+    Route::post('audio','AudioController@upload');
+    Route::post('image','ImageController@upload');
+});
