@@ -1,23 +1,26 @@
-@extends('layouts.app',['activemenuitem'=>'test'])
+@extends('layouts.app',['activemenuitem'=>'home'])
 
 @section('content-header')
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Test
-        <small>Control panel</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
-        <li class="active">
-            Test
-        </li>
-      </ol>
-    </section>
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    
+  </section>
 @stop
 
 @section('content')
-    <section class="content">
-        <h4>Hello</h4>
-    </section>
+  <section class="content">
+    
+  </section>
 @stop
+
+@push('styles')
+  <style type="text/css">
+    
+  </style>
+@endpush
+
+@push('scripts')
+  <script>
+
+  </script>
+@endpush

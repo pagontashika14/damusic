@@ -22,11 +22,9 @@ Route::group(['middleware' => 'auth:api'], function () {
 	    return $user;
 	});
 });
-Route::get('test',function (){
-	$user = App\User::where('email','pagontashika14@gmail.com')
-					->with('roles')
-					->first();
-    return $user;
+Route::post('test',function (Request $request){
+	$audio = App\Audio::where('id',$request->id)->with('links')->first();
+	return $audio;
 });
 Route::post('login','UserController@login');
 Route::post('register','UserController@register');

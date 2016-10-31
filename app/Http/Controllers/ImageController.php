@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Image;
 use File;
 use App\Helper\FillError;
+use Validator;
 
 class ImageController extends Controller
 {
@@ -42,10 +43,10 @@ class ImageController extends Controller
     	$file = $request->file('image');
     	$ext = $file->getClientOriginalExtension();
     	if ( $ext == 'jpg' || $ext == 'png') {
-    		$code = md5(File::get($file->getRealPath()));
-            $link = '/images/'.$code;
-            $this->create($code,$link);
-            $file->storeAs('images', $code.'.'.$ext);
+    		$name = md5(File::get($file->getRealPath()));
+            $link = '/images/'.$name;
+            $this->create($name,$link);
+            $file->storeAs('images', $name.'.'.$ext);
     		return $link;
     	}
     	else {

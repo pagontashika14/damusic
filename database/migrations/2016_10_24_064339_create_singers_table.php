@@ -17,11 +17,11 @@ class CreateSingersTable extends Migration
             $table->increments('id');
             $table->string('code',60)->unique();
             $table->string('stage_name');
-            $table->string('name');
-            $table->timestamp('birthday');
+            $table->string('name')->nullable();
+            $table->string('birthday')->nullable();
             $table->integer('nation_id')->references('id')->on('nations');
-            $table->integer('image_id')->references('id')->on('images');
-            $table->text('description');
+            $table->integer('image_id')->references('id')->on('images')->nullable();
+            $table->text('description')->nullable();
         });
     }
 

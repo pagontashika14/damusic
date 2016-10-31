@@ -18,8 +18,8 @@ class CreatePlaylistsTable extends Migration
             $table->string('code',60)->unique();
             $table->string('name');
             $table->integer('user_id')->references('id')->on('users');
-            $table->integer('image_id')->references('id')->on('images');
-            $table->text('description');
+            $table->integer('image_id')->references('id')->on('images')->nullable();
+            $table->text('description')->nullable();
         });
     }
 

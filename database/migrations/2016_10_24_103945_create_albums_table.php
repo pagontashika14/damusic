@@ -18,8 +18,8 @@ class CreateAlbumsTable extends Migration
             $table->string('code',60)->unique();
             $table->string('name');
             $table->integer('singer_id')->references('id')->on('singers');
-            $table->integer('image_id')->references('id')->on('images');
-            $table->text('description');
+            $table->integer('image_id')->references('id')->on('images')->nullable();
+            $table->text('description')->nullable();
         });
     }
 

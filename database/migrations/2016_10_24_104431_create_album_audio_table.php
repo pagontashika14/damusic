@@ -16,7 +16,7 @@ class CreateAlbumAudioTable extends Migration
         Schema::create('album_audio', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('album_id')->references('id')->on('albums');
-            $table->integer('audio_id')->references('id')->on('audios');
+            $table->integer('audio_id')->references('id')->on('audio');
             $table->timestamp('create_time');
             $table->unique(['album_id','audio_id']);
         });

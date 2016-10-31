@@ -15,7 +15,7 @@ class CreateAudioPlaylistTable extends Migration
     {
         Schema::create('audio_playlist', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('audio_id')->references('id')->on('audios');
+            $table->integer('audio_id')->references('id')->on('audio');
             $table->integer('playlist_id')->references('id')->on('playlists');
             $table->timestamp('create_time');
             $table->unique(['audio_id', 'playlist_id']);

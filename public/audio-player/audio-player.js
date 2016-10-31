@@ -9,11 +9,11 @@ function AudioPlayer (options){
 	var isPlaying = false;
 	function BtnToPlay(){
 		_self.btn_play.attr('class', 'fa fa-pause');
-		_self.btn_play.attr('style', 'font-size: 16.5px;');
+		_self.btn_play.attr('style', 'font-size: 16.5px;cursor:pointer;');
 	}
 	function BtnToPause(){
 		_self.btn_play.attr('class', 'fa fa-play');
-		_self.btn_play.attr('style', 'font-size: 18px;');
+		_self.btn_play.attr('style', 'font-size: 18px;cursor:pointer;');
 	}
 	function GetSecondsFromPerThousand(thousand){
 		return parseInt(thousand/1000*_self.audio.duration);
@@ -64,14 +64,14 @@ function AudioPlayer (options){
 		if (_self.skin == 'audio-single') {
 			var aud_single = '<div style="width: 100%; min-width: 190px; height: 30px; background-color: #CED7F2; align-items: center; display: flex; border-radius: 5px;padding-left: 10px; padding-right: 12px;">\
 				  <div style="align-items: center; display: flex; text-align: center; width: 125px;">\
-					<i id="'+_self.id+'play" class="fa fa-play" style="font-size: 18px;"></i>\
+					<i id="'+_self.id+'play" class="fa fa-play" style="font-size: 18px; cursor:pointer;"></i>\
 					<span id="'+_self.id+'timecurrent" style="margin-left: 8px;">0:00</span><span style="margin-right: 2px; margin-left: 2px;">/</span><span id="'+_self.id+'duration">0:00</span>\
 				  </div>\
 				  <div style="width: 75%; padding-right: 10px;">\
 					<input id="'+_self.id+'time" class="aud-slider" style="width: 100%;" data-slider-id="aud-time-slider" type="text" data-slider-min="0" data-slider-max="1000" data-slider-step="1" data-slider-value="0"/>\
 				  </div>\
 				  <div class="div-volume" style="align-items: center; display: flex; width: 25%">\
-					<i id="'+_self.id+'mute" class="fa fa-volume-down" style="font-size: 25px; margin-right: 5px;"></i>\
+					<i id="'+_self.id+'mute" class="fa fa-volume-down" style="font-size: 25px; margin-right: 5px; cursor:pointer;"></i>\
 					<input id="'+_self.id+'volume" class="aud-slider" style="width: 100%;" data-slider-id="aud-volume-slider" type="text" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="100"/>\
 				  </div>\
 				</div>';

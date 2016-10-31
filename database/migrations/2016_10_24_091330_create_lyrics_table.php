@@ -15,8 +15,9 @@ class CreateLyricsTable extends Migration
     {
         Schema::create('lyrics', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('audio_id')->references('id')->on('audios');
-            $table->text('name');
+            $table->integer('audio_id')->references('id')->on('audio');
+            $table->integer('user_id')->references('id')->on('users');
+            $table->text('lyric');
         });
     }
 

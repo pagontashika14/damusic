@@ -15,7 +15,7 @@ class CreateAudioSingerTable extends Migration
     {
         Schema::create('audio_singer', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('audio_id')->references('id')->on('audios');
+            $table->integer('audio_id')->references('id')->on('audio');
             $table->integer('singer_id')->references('id')->on('singers');
             $table->unique(['audio_id','singer_id']);
         });

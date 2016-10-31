@@ -1,93 +1,65 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Nghe nhạc trực tuyến</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<title>Nghe nhạc trực tuyến</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{{ asset('css/w3/w3.css') }}">
+{{-- <link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-blue-grey.css"> --}}
+<link rel="stylesheet" type="text/css" href="{{ asset('css/w3/w3-theme-blue-grey.css') }}">
+<link rel='stylesheet' href='{{ asset('css/font/font-open-sans.css') }}'>
+<link rel="stylesheet" href="{{ asset('font-awesome-4.7.0/css/font-awesome.min.css') }}">
+<style>
+	html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
+</style>
+<link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+@stack('styles')
+<body class="w3-theme-l5">
+	@include('layouts.navbar')
+	<!-- Page Container -->
+	<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px;">    
+		<!-- The Grid -->
+		<div style="max-width: 980px; min-height: 85vh; margin: auto;">
+			@yield('content')
+		</div>
 
-  <!-- Bootstrap 3 -->
-  <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css',env('HTTPS_ASSET'))}}">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{asset('font-awesome/css/font-awesome.min.css',env('HTTPS_ASSET'))}}">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="{{asset('ionicons/css/ionicons.min.css',env('HTTPS_ASSET'))}}">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{asset('admin-lte/dist/css/AdminLTE.min.css',env('HTTPS_ASSET'))}}">
-  <!-- Bootstrap Slider -->
-  <link rel="stylesheet" href="{{asset('bootstrap-slider/css/bootstrap-slider.min.css',env('HTTPS_ASSET'))}}">
-  <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
-        page. However, you can choose any other skin. Make sure you
-        apply the skin class to the body tag so the changes take effect.
-  -->
-  <link rel="stylesheet" href="{{asset('admin-lte/dist/css/skins/skin-purple.min.css',env('HTTPS_ASSET'))}}">
-  <link rel="stylesheet" href="{{asset('admin-lte/dist/css/skins/skin-red-light.min.css',env('HTTPS_ASSET'))}}">
-
-  @stack('styles')
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-</head>
-{{-- <body class="hold-transition skin-purple sidebar-mini sidebar-collapse"> --}}
-<body class="hold-transition skin-red-light sidebar-mini sidebar-collapse">
-@include('general.alert')
-<div class="wrapper">
-  <!-- Main Header -->
-  @include('layouts.header')
-  <!-- Left side column. contains the logo and sidebar -->
-  @include('layouts.sidebar')
-
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    @yield('content-header')
-    @yield('content')
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-
-  <!-- Main Footer -->
-  @include('layouts.footer')
-
-  <!-- Control Sidebar -->
-  @include('layouts.control-sidebar')
-  <!-- /.control-sidebar -->
-  <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
+		<!-- End Grid -->
+	</div>
+	<!-- End Page Container -->
 </div>
-<!-- ./wrapper -->
+<br>
 
+<!-- Footer -->
+<footer class="w3-container w3-theme-d3 w3-padding-16">
+	<h5>Footer</h5>
+</footer>
 
-<!-- REQUIRED JS SCRIPTS -->
+<footer class="w3-container w3-theme-d5">
+	<p>Powered by <a href="http://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+</footer>
 
-<!-- jQuery 2.2.3 -->
-<script src="{{asset('js/jquery-3.1.1.min.js',env('HTTPS_ASSET'))}}"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="{{asset('bootstrap/js/bootstrap.min.js',env('HTTPS_ASSET'))}}"></script>
-<script src="{{asset('bootstrap-slider/bootstrap-slider.min.js',env('HTTPS_ASSET'))}}"></script>
-<!-- AdminLTE App -->
-<script src="{{asset('admin-lte/dist/js/app.min.js',env('HTTPS_ASSET'))}}"></script>
+<script>
+// Accordion
+function myFunction(id) {
+	var x = document.getElementById(id);
+	if (x.className.indexOf("w3-show") == -1) {
+		x.className += " w3-show";
+		x.previousElementSibling.className += " w3-theme-d1";
+	} else { 
+		x.className = x.className.replace("w3-show", "");
+		x.previousElementSibling.className = 
+		x.previousElementSibling.className.replace(" w3-theme-d1", "");
+	}
+}
 
-<!-- Optionally, you can add Slimscroll and FastClick plugins.
-     Both of these plugins are recommended to enhance the
-     user experience. Slimscroll is required when using the
-     fixed layout. -->
-<script src="{{ asset('slim-scroll/jquery.slimscroll.min.js',env('HTTPS_ASSET')) }}"></script>
-<script src="{{ asset('js/helper.js',env('HTTPS_ASSET')) }}"></script>
-<script src="{{asset('audio-player/audio-player.js',env('HTTPS_ASSET'))}}"></script>
-<script type="text/javascript">
-  
+// Used to toggle the menu on smaller screens when clicking on the menu button
+function openNav() {
+	var x = document.getElementById("navDemo");
+	if (x.className.indexOf("w3-show") == -1) {
+		x.className += " w3-show";
+	} else { 
+		x.className = x.className.replace(" w3-show", "");
+	}
+}
 </script>
-@stack('scripts')
+
 </body>
-</html>
+</html> 
