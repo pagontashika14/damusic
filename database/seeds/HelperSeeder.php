@@ -20,7 +20,6 @@ class HelperSeeder extends Seeder
         ]);
 
         DB::table('singers')->insert([
-            'code' => 'SIN0000001',
             'stage_name' => 'Thùy Chi',
             'name' => 'Trần Thùy Chi',
             'birthday' => '04/05/1990',
@@ -28,7 +27,6 @@ class HelperSeeder extends Seeder
         ]);
 
         DB::table('singers')->insert([
-            'code' => 'SIN0000002',
             'stage_name' => 'Anh Khang',
             'name' => 'Hoàng Anh Khang',
             'birthday' => '1989',
@@ -36,7 +34,6 @@ class HelperSeeder extends Seeder
         ]);
 
         DB::table('singers')->insert([
-            'code' => 'SIN0000003',
             'stage_name' => 'Davichi',
             'name' => 'Davichi',
             'birthday' => '2008',

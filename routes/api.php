@@ -23,12 +23,25 @@ Route::group(['middleware' => 'auth:api'], function () {
 	});
 });
 Route::post('test',function (Request $request){
-	$audio = App\Audio::where('id',$request->id)->with('links')->first();
-	return $audio;
+
+	return $request->all();
 });
 Route::post('login','UserController@login');
 Route::post('register','UserController@register');
 Route::group(['prefix' => 'upload'], function () {
-    Route::post('audio','AudioController@upload');
-    Route::post('image','ImageController@upload');
+    Route::post('upload','AudioController@upload');
+});
+Route::group(['prefix' => 'nation'], function () {
+    Route::get('search','NationController@search');
+});
+Route::group(['prefix' => 'singer'], function () {
+    Route::get('search','SingerController@searchSimilar');
+    Route::post('insert','SingerController@insert');
+});
+Route::group(['prefix' => 'image'], function () {
+   Route::post('upload','ImageController@upload');
+});
+Route::group(['prefix' => 'type'], function () {
+   Route::get('search','TypeController@search');
+   Route::post('insert','TypeController@insert');
 });

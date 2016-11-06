@@ -15,7 +15,6 @@ class CreateSingersTable extends Migration
     {
         Schema::create('singers', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code',60)->unique();
             $table->string('stage_name');
             $table->string('name')->nullable();
             $table->string('birthday')->nullable();

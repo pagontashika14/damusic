@@ -20,6 +20,10 @@ class Audio extends Model
         return $this->belongsToMany('App\Singer')->select(['singers.id','name','stage_name']);
     }
 
+    public function singers() {
+        return $this->belongsToMany('App\Type')->select(['types.id','name']);
+    }
+
     public function nation() {
     	return $this->belongsTo('App\Nation');
     }

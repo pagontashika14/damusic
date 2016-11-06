@@ -63,7 +63,8 @@ class AudioController extends Controller
     			$validator = Validator::make($request->all(), [
 		            'name' => 'required',
 		            'nation_id' => 'required|integer',
-                    'singers' => 'required'
+                    'singers' => 'required',
+                    'types' => 'requiredq'
 		        ]);
 		    	if ($validator->fails()) {
 		    		$errors = $validator->errors();
@@ -72,9 +73,13 @@ class AudioController extends Controller
     			$code = $name;
     			$audio = $this->createAudio($code,$request->name,$request->nation_id);
     			$audio_link = $this->createLink($audio->id,$link);
-                $singers = json_decode($request->singers);
+                $singers = $request->singers;
                 foreach($singers as $singer) {
                     $audio->singers()->attach($singer);
+                }
+                $types = $request->types;
+                foreach($types as $type) {
+                    $audio->types()->attach($type);
                 }
     		}
     		else {
@@ -82,7 +87,7 @@ class AudioController extends Controller
     			$audio_link = $this->createLink($audio->id,$link);
     		}
     		$file->storeAs('audio',$name.'.'.$ext);
-    		return $this->index($code);
+    		return $code;
     	}
     	else {
     		$errors = ['file_type' => ['Không phải định dạng mp3.']];

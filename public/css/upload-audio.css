@@ -1,0 +1,17 @@
+#upload-content {
+    background-color: white;
+    width: 100%;
+    min-height: 80vh;
+}
+
+#audio-files {display: none;}
+
+.tab-type {display:none;}
+
+#btn-upload {
+	margin-top: 40px;
+}
+
+.select2 {
+	width: 100% !important;
+}

@@ -80,7 +80,7 @@ return [
     ],
     'string'               => ':attribute must be a string.',
     'timezone'             => ':attribute must be a valid zone.',
-    'unique'               => ':attribute has already been taken.',
+    'unique'               => 'Trường :attribute đã tồn tại.',
     'uploaded'             => ':attribute failed to upload.',
     'url'                  => ':attribute lỗi định dạng.',
 

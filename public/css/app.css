@@ -1,0 +1,25 @@
+#the-grid {
+    max-width: 980px;
+    min-height: 85vh;
+    margin: auto;
+}
+
+.select2-container .select2-selection--single {
+    height: 35px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 35px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 30px;
+}
+
+.w3-input {
+	height: 35px;
+}
+
+.w3-my-border {
+    border: 1px solid #aaa !important;
+}
