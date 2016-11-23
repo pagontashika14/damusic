@@ -18,6 +18,7 @@ class CreateAudioTable extends Migration
             $table->string('code',60)->unique();
             $table->string('name');
             $table->integer('nation_id')->references('id')->on('nations');
+            $table->integer('user_id')->references('id')->on('users');
         });
     }
 

@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Music4ME | Log in</title>
+  <title>DaMusic | Log in</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3 -->
   <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css',env('HTTPS_ASSET'))}}">
   <!-- Font-awesome -->
-  <link rel="stylesheet" href="{{asset('font-awesome/css/font-awesome.min.css',env('HTTPS_ASSET'))}}">
+  <link rel="stylesheet" href="{{asset('font-awesome-4.7.0/css/font-awesome.min.css',env('HTTPS_ASSET'))}}">
   <!-- Ionicons -->
   <link rel="stylesheet" href="{{asset('ionicons/css/ionicons.min.css',env('HTTPS_ASSET'))}}">
   <!-- Theme style -->
@@ -28,7 +28,7 @@
 @include('general.alert')
 <div class="login-box">
   <div class="login-logo">
-    <a href="/"><b>Music</b>4ME</a>
+    <a href="/"><b>DaMusic</b>4ME</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">

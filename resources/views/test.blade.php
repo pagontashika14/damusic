@@ -1,26 +1,16 @@
-@extends('layouts.app',['activemenuitem'=>'home'])
-
-@section('content-header')
-  <!-- Content Header (Page header) -->
-  <section class="content-header">
-    
-  </section>
-@stop
-
-@section('content')
-  <section class="content">
-    
-  </section>
-@stop
+@extends('layouts.app')
 
 @push('styles')
-  <style type="text/css">
-    
-  </style>
-@endpush
+{{-- <link rel="stylesheet" href="{{ asset('css/upload-audio.css') }}"> --}}
+@endpush 
+
+@section('content')
+
+@stop
 
 @push('scripts')
-  <script>
-
-  </script>
+{{-- <script src="{{ asset('js/upload-audio.controller.js') }}"></script> --}}
+<script>
+	// var controller = new DaMusic.Controller.UploadAudio();
+</script>
 @endpush

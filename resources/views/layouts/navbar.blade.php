@@ -25,7 +25,9 @@
 			</div>
 		</li>
 		<li class="w3-hide-small w3-right">
-			<a href="#" class="w3-padding-large w3-hover-white" title="My Account"><img src="{{ asset('img/avatar.png') }}" class="w3-circle" style="height:25px;width:25px" alt="Avatar"></a>
+			<a id="navbar-user" href="login" class="w3-padding-large w3-hover-white" title="My Account"><img src="{{ asset('img/avatar.png') }}" class="w3-circle" style="height:25px;width:25px;" alt="Avatar">
+				<span id="navbar-username">Guest</span>
+			</a>
 		</li>
 	</ul>
 </div>

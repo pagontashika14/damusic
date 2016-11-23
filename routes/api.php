@@ -24,12 +24,13 @@ Route::group(['middleware' => 'auth:api'], function () {
 });
 Route::post('test',function (Request $request){
 
-	return $request->all();
+	return $request->audio[0]->getClientOriginalName();
 });
 Route::post('login','UserController@login');
 Route::post('register','UserController@register');
-Route::group(['prefix' => 'upload'], function () {
+Route::group(['prefix' => 'audio'], function () {
     Route::post('upload','AudioController@upload');
+    Route::get('index/{code}','AudioController@index');
 });
 Route::group(['prefix' => 'nation'], function () {
     Route::get('search','NationController@search');

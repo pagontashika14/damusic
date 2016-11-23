@@ -16,15 +16,15 @@
 			<p id="show-files-note">Chú ý: Có thể chọn nhiều tệp với chất lượng khác nhau cho một bài hát.</p>
 			<div id="show-files"></div>
 		</div>
+	</div>
+
+	<div id="audio-info" style="width: 100%; margin: auto; position: relative;">
 		<div class="w3-progress-container w3-round-xlarge">
 			<div id="progress" class="w3-progressbar w3-red w3-round-xlarge" style="width:0%">
 				<div id="progress-text" class="w3-center w3-text-white">0%</div>
 			</div>
 		</div>
-		<hr>
-	</div>
-
-	<div id="audio-info" style="width: 100%; margin: auto; position: relative;">
+		<br>
 		<ul class="w3-navbar w3-leftbar w3-border-teal w3-border-bottom">
 			<li><a href="javascript:void(0)" class="tablink w3-hover-shadow" id="tab1" onclick="controller.SwitchTab(event, 'basic-info');">Basic info</a></li>
 			<li><a href="javascript:void(0)" class="tablink w3-hover-shadow" onclick="controller.SwitchTab(event, 'meta-data');">Metadata</a></li>
@@ -54,7 +54,7 @@
 			<div class="w3-col m5">
 				<p>
 					<label class="w3-text-blue">Lời bài hát</label>
-					<textarea class="w3-input w3-border" style="resize:none; height: 200px;"></textarea>
+					<textarea id="lyric" class="w3-input w3-border" style="resize:none; height: 200px;"></textarea>
 				</p>
 			</div>
 		</div>

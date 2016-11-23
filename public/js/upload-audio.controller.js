@@ -104,12 +104,9 @@ DaMusic.Controller = DaMusic.Controller || {};
 
 	Controller.UploadAudio.prototype.SetPercentOfProgress = function(percent){
 		var self = this;
-		if (percent > self.progressPercent) {
-			
-		} else {
-			$('#progress').attr('style', 'width: ' + percent + '%;');
-			$('#progress-text').html(percent+'%');
-		}
+		percent = percent.toFixed(1);
+		$('#progress').attr('style', 'width: ' + percent + '%;');
+		$('#progress-text').html(percent+'%');
 		self.progressPercent = percent;
 	}
 
@@ -119,9 +116,9 @@ DaMusic.Controller = DaMusic.Controller || {};
 			if(e.lengthComputable){
 				var max = e.total;
 				var current = e.loaded;
-				var Percentage = (current * 100)/max;
-				console.log(Percentage);
-				if(Percentage >= 100)
+				var percentage = (current * 100)/max;
+				self.SetPercentOfProgress(percentage);
+				if(percentage >= 100)
 				{
 					console.log('done');
 				}
@@ -140,8 +137,10 @@ DaMusic.Controller = DaMusic.Controller || {};
 			$('#types').val().forEach(function(typeId){
 				data.append('types[]',typeId);
 			});
+			data.append('lyric',$('#lyric').val());
+			data.append('user_id',sessionStorage.user_id);
 			$.ajax({
-				url: '/api/test',
+				url: '/api/audio/upload',
 				method: 'POST',
 				data: data,
 				xhr: function() {
@@ -160,6 +159,10 @@ DaMusic.Controller = DaMusic.Controller || {};
 				error: function(error){
 					console.log('--error--');
 					console.log(error);
+					var data = error.responseText;
+					myWindow = window.open("data:text/html," + encodeURIComponent(data),
+					                       "_blank", "width=200,height=100");
+					myWindow.focus();
 				}
 			});
 

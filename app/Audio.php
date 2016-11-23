@@ -8,7 +8,7 @@ class Audio extends Model
 {
 	public $timestamps = false;
     protected $fillable = [
-        'code', 'name', 'nation_id'
+        'code', 'name', 'nation_id', 'user_id'
     ];
 
     protected $hidden = [
@@ -20,7 +20,7 @@ class Audio extends Model
         return $this->belongsToMany('App\Singer')->select(['singers.id','name','stage_name']);
     }
 
-    public function singers() {
+    public function types() {
         return $this->belongsToMany('App\Type')->select(['types.id','name']);
     }
 
@@ -30,5 +30,13 @@ class Audio extends Model
 
     public function links() {
     	return $this->hasMany('App\AudioLink');
+    }
+
+    public function lyrics() {
+        return $this->hasMany('App\Lyric')->with('user');
+    }
+
+    public function user() {
+        return $this->belongsTo('App\User')->select(['users.id','users.name']);
     }
 }

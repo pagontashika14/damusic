@@ -23,6 +23,10 @@ Route::get('/upload-audio', function () {
     return view('upload-audio');
 });
 
+Route::get('/play-audio/{code}', function ($code) {
+    return view('play-audio',['code' => $code]);
+});
+
 Route::get('/audio/{code}', 'AudioController@getAudio');
 
 Route::get('/images/{code}','ImageController@index');
