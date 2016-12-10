@@ -8,10 +8,9 @@
 			<a href="/" class="w3-padding-large w3-theme-d4"><i class="fa fa-home w3-margin-right"></i>Damusic</a>
 		</li>
 		<li class="w3-hide-small">
-			<a href="#" class="w3-padding-large w3-hover-white" title="News"><i class="fa fa-globe"></i></a>
-		</li>
-		<li class="w3-hide-small">
-			<a href="#" class="w3-padding-large w3-hover-white" title="Account Settings"><i class="fa fa-user"></i></a>
+			<a href="#" class="w3-padding-large w3-hover-white" title="Nhạc cá nhân">
+				<i class="fa fa-user"></i>
+			</a>
 		</li>
 		<li class="w3-hide-small">
 			<a href="#" class="w3-padding-large w3-hover-white" title="Messages"><i class="fa fa-envelope"></i></a>
@@ -25,7 +24,7 @@
 			</div>
 		</li>
 		<li class="w3-hide-small w3-right">
-			<a id="navbar-user" href="login" class="w3-padding-large w3-hover-white" title="My Account"><img src="{{ asset('img/avatar.png') }}" class="w3-circle" style="height:25px;width:25px;" alt="Avatar">
+			<a id="navbar-user" href="{{asset('login')}}" class="w3-padding-large w3-hover-white" title="My Account"><img src="{{ asset('img/avatar.png') }}" class="w3-circle" style="height:25px;width:25px;" alt="Avatar">
 				<span id="navbar-username">Guest</span>
 			</a>
 		</li>
@@ -35,7 +34,7 @@
 <!-- Navbar on small screens -->
 <div id="navDemo" class="w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:51px">
 	<ul class="w3-navbar w3-left-align w3-large w3-theme">
-		<li><a class="w3-padding-large" href="#">Link 1</a></li>
+		<li><a class="w3-padding-large" href="#">Nhạc cá nhân</a></li>
 		<li><a class="w3-padding-large" href="#">Link 2</a></li>
 		<li><a class="w3-padding-large" href="#">Link 3</a></li>
 		<li><a class="w3-padding-large" href="#">My Profile</a></li>

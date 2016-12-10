@@ -7,7 +7,7 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3 -->
-  <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css',env('HTTPS_ASSET'))}}">
+  <link rel="stylesheet" href="{{asset('bootstrap-3.3.7-dist/css/bootstrap.min.css',env('HTTPS_ASSET'))}}">
   <!-- Font-awesome -->
   <link rel="stylesheet" href="{{asset('font-awesome-4.7.0/css/font-awesome.min.css',env('HTTPS_ASSET'))}}">
   <!-- Ionicons -->
@@ -71,7 +71,7 @@
 <!-- jQuery 3 -->
 <script src="{{ asset('js/jquery-3.1.1.min.js',env('HTTPS_ASSET')) }}"></script>
 <!-- Bootstrap 3 -->
-<script src="{{asset('bootstrap/js/bootstrap.min.js',env('HTTPS_ASSET'))}}"></script>
+<script src="{{asset('bootstrap-3.3.7-dist/js/bootstrap.min.js',env('HTTPS_ASSET'))}}"></script>
 <!-- iCheck -->
 <script src="{{asset('admin-lte/plugins/iCheck/icheck.min.js',env('HTTPS_ASSET'))}}"></script>
 

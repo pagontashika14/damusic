@@ -28,14 +28,13 @@ class ImageController extends Controller
             return FillError::Validation($errors);
         }
 	}
-    public function create($name,$link) {
+    public function create($name) {
         $tmp = Image::where('name',$name)->get();
         if (count($tmp)>0) {
             return $tmp[0];
         }
 		$image = Image::create([
             'name' => $name,
-            'link' => $link
         ]);
     	return $image;
 	}
@@ -45,7 +44,7 @@ class ImageController extends Controller
     	if ( $ext == 'jpg' || $ext == 'png') {
     		$name = md5(File::get($file->getRealPath()));
             $link = '/images/'.$name;
-            $this->create($name,$link);
+            $this->create($link);
             $file->storeAs('images', $name.'.'.$ext);
     		return $link;
     	}

@@ -17,7 +17,11 @@ class Audio extends Model
     ];
 
     public function singers() {
-        return $this->belongsToMany('App\Singer')->select(['singers.id','name','stage_name']);
+        return $this->belongsToMany('App\Singer')->select(['singers.id','name','stage_name'])->with('image');
+    }
+
+    public function composer() {
+        return $this->belongsToMany('App\Singer','audio_composer')->select(['singers.id','name','stage_name']);
     }
 
     public function types() {
@@ -39,4 +43,5 @@ class Audio extends Model
     public function user() {
         return $this->belongsTo('App\User')->select(['users.id','users.name']);
     }
+
 }

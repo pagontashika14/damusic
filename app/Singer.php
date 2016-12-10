@@ -14,8 +14,20 @@ class Singer extends Model
         'pivot'
     ];
 
+    protected $appends = ['image_link'];
+
     public function audio()
     {
         return $this->belongsToMany('App\Audio');
+    }
+
+    public function image()
+    {
+        return $this->belongsTo('App\Image');
+    }
+
+    public function getImageLinkAttribute() {
+        //dd($this->image());
+        return $this->image();
     }
 }

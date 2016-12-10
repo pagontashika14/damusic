@@ -1,0 +1,84 @@
+.irs-min, .irs-max {
+    color: white;
+    background: rgba(0,0,0,0.5);
+}
+
+.dat-content-singer-medium {
+    width : 100%;
+    height : 180px;
+    background-image: url('/img/cover1.jpg');
+    background-size: cover;
+    overflow:hidden;
+}
+
+.dat-opacity-singer-medium {
+    width:100%;
+    height:100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.dat-bar-singer-medium {
+    width:100%;
+    height:93px;
+}
+
+.dat-title-singer-medium {
+    width:100%;
+    height:87px;
+}
+
+.dat-text-title-single-medium {
+    max-width: 95%;
+    color: gold;
+    font-size: 24px;
+    text-align: center;
+}
+
+.dat-timeline-single-medium {
+    width:100%;
+    height:43px;
+}
+
+.dat-control-single-medium {
+    width:100%;
+    height:50px;
+    background-color: rgba(0,0,0,0.8);
+    padding-left: 15px;
+}
+
+.dat-play-single-medium {
+    width:30px;
+    height:100%;
+}
+
+.dat-btn-single-medium {
+    font-size:24px;
+    color:white;
+    cursor:pointer;
+}
+
+.dat-left-single-medium {
+    width:auto;
+    height:100%;
+    margin-right: 10px;
+}
+
+.dat-quality-single-medium {
+    width:100px;
+    height:100%;
+}
+.dat-btn-quality-single-medium {
+    background-color: transparent;
+    padding-top: 1px;
+    padding-bottom: 2px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.tooltip_templates {
+    display: none;
+}
+
+.tooltipster-content {
+    overflow: visible;
+}

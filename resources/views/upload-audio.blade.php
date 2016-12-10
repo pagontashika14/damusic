@@ -53,6 +53,10 @@
 			</div>
 			<div class="w3-col m5">
 				<p>
+					<label class="w3-text-blue">Sáng tác</label>
+					<select id="composer" name="composer"></select>
+				</p>
+				<p>
 					<label class="w3-text-blue">Lời bài hát</label>
 					<textarea id="lyric" class="w3-input w3-border" style="resize:none; height: 200px;"></textarea>
 				</p>

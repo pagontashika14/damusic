@@ -28,6 +28,26 @@ DaMusic.Controller = DaMusic.Controller || {};
 				placeholder: 'Tìm kiếm...',
 				allowClear: true
 			});
+			$("#composer").select2({
+				ajax: {
+					url:  '/api/singer/search',
+					delay: 250,
+					data: function (params) {
+						var query = {
+							search: params.term
+						}
+						return query;
+					},
+					processResults: function (data, params) {
+						return {
+							results: data,
+						};
+					},
+				},
+				minimumInputLength: 1,
+				placeholder: 'Tìm kiếm...',
+				allowClear: true
+			});
 			$("#nation").select2({
 				ajax: {
 					url:  '/api/nation/search',
@@ -139,6 +159,7 @@ DaMusic.Controller = DaMusic.Controller || {};
 			});
 			data.append('lyric',$('#lyric').val());
 			data.append('user_id',sessionStorage.user_id);
+			data.append('composer_id',$('#composer').val());
 			$.ajax({
 				url: '/api/audio/upload',
 				method: 'POST',
@@ -154,6 +175,7 @@ DaMusic.Controller = DaMusic.Controller || {};
 				contentType: false,
 				processData: false,
 				success: function(results){
+					
 					console.log(results);
 				},
 				error: function(error){

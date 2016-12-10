@@ -12,8 +12,8 @@ use App\Helper\FillError;
 
 class SingerController extends Controller
 {
-	public function index($code) {
-		
+	public function index($id) {
+		return Singer::where('id','=',$id)->get();
 	}
 
 	public function searchExactly(Request $request){

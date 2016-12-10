@@ -27,6 +27,4 @@ Route::get('/play-audio/{code}', function ($code) {
     return view('play-audio',['code' => $code]);
 });
 
-Route::get('/audio/{code}', 'AudioController@getAudio');
-
-Route::get('/images/{code}','ImageController@index');
+Route::get('audio/{code}', 'AudioController@getAudio');
