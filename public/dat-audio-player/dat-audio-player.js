@@ -1,5 +1,6 @@
 (function (Controller) {
     Controller.DatAudioPlayer = function (options) {
+        this.myEvent = {};
         this.divContainer = $('#' + options.divId);
         if (options.skin) {
             this.loadSkin(options.skin);
@@ -9,6 +10,20 @@
         this.initEvent();
         if (options.hasRepeat) {
             this.initRepeat();
+        }
+    }
+
+    Controller.DatAudioPlayer.prototype.addEvent = function(name,fun,isStop = false) {
+        if(!this.myEvent[name]) {
+            this.myEvent[name] = [];
+        }
+        this.myEvent[name].push(fun);
+    }
+
+    Controller.DatAudioPlayer.prototype.emitEvent = function(name,data) {
+        if(!this.myEvent[name]) return;
+        for(let i = 0, len = this.myEvent[name].length; i < len; i++) {
+            this.myEvent[name][i](data);
         }
     }
 
@@ -23,6 +38,7 @@
     Controller.DatAudioPlayer.prototype.initEvent = function () {
         this.btnPlay.click(this.btnPlayClick.bind(this));
         this.divTimeline.mousedown(this.divTimelineMouseDown.bind(this));
+        this.divTimeline.mouseup(this.divTimelineMouseUp.bind(this));
         this.slider.update({
             onFinish: this.onSliderUpdate.bind(this)
         });
@@ -94,6 +110,10 @@
 
     Controller.DatAudioPlayer.prototype.divTimelineMouseDown = function () {
         this.isEditTimeLine = true;
+    }
+
+    Controller.DatAudioPlayer.prototype.divTimelineMouseUp = function () {
+        this.isEditTimeLine = false;
     }
 
     Controller.DatAudioPlayer.prototype.onSliderUpdate = function (data) {
@@ -201,6 +221,12 @@
     }
 
     Controller.DatAudioPlayer.prototype.onAudioEnded = function () {
+        let audio = this.source[this.currentAudio];
+        let link = this.getLink(audio.links);
+        let isStop = this.emitEvent('onend',{
+            audio: audio,
+            currentLink: link.name
+        });
         let next = this.getNextAudio();
         if (next != undefined) {
             this.next();
@@ -303,6 +329,11 @@
         this.updateBtnPlay();
         this.updateAudioTitle(audio.name);
         this.onStart(audio);
+
+        this.emitEvent('onstart',{
+            audio: audio,
+            currentLink: link.name
+        });
     }
 
     Controller.DatAudioPlayer.prototype.updateAudioTitle = function(title) {
@@ -330,6 +361,12 @@
     }
 
     Controller.DatAudioPlayer.prototype.next = function () {
+        let audio = this.source[this.currentAudio];
+        let link = this.getLink(audio.links);
+        this.emitEvent('onnext',{
+            audio: audio,
+            currentLink: link.name
+        });
         this.currentAudio = this.getNextAudio();
         this.start();
     }

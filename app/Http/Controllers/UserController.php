@@ -9,6 +9,8 @@ use App\User;
 use App\Role;
 use App\Helper\FillError;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
+use Auth;
 
 class UserController extends Controller
 {
@@ -36,8 +38,18 @@ class UserController extends Controller
 				'password'=>['Password không đúng.']
 			]);
 		}
-		return $user;
+		$user->remember_token = Carbon::now()->addHours(2)->toDateTimeString();
+		$user->save();
+		return response($user)->cookie(
+			'api_token', $user->api_token, 120
+		);
     }
+
+	public function logout(Request $request) {
+		$user = Auth::user();
+		$user->remember_token = Carbon::now()->subSeconds(1)->toDateTimeString();
+		$user->save();
+	}
 
     public function register(Request $request) {
     	$data = $request->all();

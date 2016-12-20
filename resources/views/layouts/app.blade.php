@@ -2,41 +2,41 @@
 <html>
 <title>Nghe nhạc trực tuyến</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-{{-- <link rel="stylesheet" type="text/css" href="{{ asset('mdl/material.min.css') }}"> --}}
-{{-- <link rel="stylesheet" type="text/css" href="{{ asset('semantic/semantic.min.css') }}"> --}}
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="{{ asset('bootstrap-3.3.7-dist/css/bootstrap.min.css') }}">
 
-<link rel="stylesheet" href="{{ asset('css/w3/w3.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('css/w3/w3-theme-blue-grey.css') }}">
-{{-- <link rel='stylesheet' href='{{ asset('css/font/font-open-sans.css') }}'> --}}
-<link rel="stylesheet" href="{{ asset('font-awesome-4.7.0/css/font-awesome.min.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('select2-4.0.3/dist/css/select2.min.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('css/pagination.css') }}">
-{{-- <link rel="stylesheet" type="text/css" href="{{ asset('ion.rangeSlider-2.1.4/css/normalize.css') }}"> --}}
-<link rel="stylesheet" type="text/css" href="{{ asset('ion.rangeSlider-2.1.4/css/ion.rangeSlider.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('ion.rangeSlider-2.1.4/css/ion.rangeSlider.skinHTML5.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('tooltipster/css/tooltipster.bundle.min.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('tooltipster/css/tooltipster-sideTip-punk.min.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('dat-audio-player/style.css') }}">
-{{-- <script src="{{ asset('mdl/material.min.js') }}"></script> --}}
-<script src="{{ asset('js/underscore-min.js') }}"></script>
-<script src="{{ asset('js/jquery-3.1.1.min.js',env('HTTPS_ASSET')) }}"></script>
-<script src="{{ asset('bootstrap-3.3.7-dist/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('select2-4.0.3/dist/js/select2.full.js') }}"></script>
-<script src="{{ asset('js/pagination.js') }}"></script>
-{{-- <script src="{{ asset('semantic/semantic.min.js') }}"></script> --}}
-{{-- <style>
-	html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
-</style> --}}
-<link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/css/w3/w3.css">
+<link rel="stylesheet" type="text/css" href="/css/w3/w3-theme-blue-grey.css">
+
+<link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="/select2-4.0.3/dist/css/select2.min.css">
+<link rel="stylesheet" type="text/css" href="/css/pagination.css">
+
+<link rel="stylesheet" type="text/css" href="/ion.rangeSlider-2.1.4/css/ion.rangeSlider.css">
+<link rel="stylesheet" type="text/css" href="/ion.rangeSlider-2.1.4/css/ion.rangeSlider.skinHTML5.css">
+<link rel="stylesheet" type="text/css" href="/tooltipster/css/tooltipster.bundle.min.css">
+<link rel="stylesheet" type="text/css" href="/tooltipster/css/tooltipster-sideTip-punk.min.css">
+<link rel="stylesheet" type="text/css" href="/dat-audio-player/style.css">
+
+
+<link rel="stylesheet" type="text/css" href="/css/app.css">
 @stack('styles')
 <body class="w3-theme-l5">
 	@include('layouts.navbar')
 	<!-- Page Container -->
+	<div id="audio-search-bar" class="search-bar w3-card-4">
+		<div class="search-content w3-display-container">
+			<i id="icon-search" class="fa fa-search icon-search w3-display-left" aria-hidden="true" style="font-size:30px;"></i>
+			<input id="audio-search-input" class="search-input w3-display-right" type="text">
+			<i id="icon-go" class="fa fa-arrow-circle-right w3-display-left icon-go" aria-hidden="true" style="font-size:30px;"></i>
+		</div>
+	</div>
+	<div id="dimmer"></div>
 	<div class="w3-container w3-content" style="width:100%;margin-top:50px;">
+		
 		<!-- The Grid -->
-		<div id="the-grid" style="background-color: white; padding: 15px;">
+		<div id="the-grid">
 			@yield('content')
 		</div>
 
@@ -48,13 +48,22 @@
 
 <!-- Footer -->
 <footer class="w3-container w3-theme-d3 w3-padding-16">
-	<h5>Footer</h5>
+	<h5>About me</h5>
 </footer>
 
 <footer class="w3-container w3-theme-d5">
-	<p>Powered by <a href="http://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+	<p>Designed and Developed by Dương Tuấn Đạt, 2016</p>
 </footer>
-{{-- <script src="{{ asset('js/jquery-3.1.1.min.js',env('HTTPS_ASSET')) }}"></script> --}}
+<script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="/select2-4.0.3/dist/js/select2.full.js"></script>
+<script src="/js/pagination.js"></script>
+<script src="/js/notify.min.js"></script>
+<script src="/js/underscore-min.js"></script>
+<script src="/slim-scroll/jquery.slimscroll.min.js"></script>
+<script src="/ion.rangeSlider-2.1.4/js/ion-rangeSlider/ion.rangeSlider.min.js"></script>
+<script src="/tooltipster/js/tooltipster.bundle.min.js"></script>
+<script src="/dat-audio-player/dat-audio-player.js"></script>
 <script>
 // Accordion
 function myFunction(id) {
@@ -83,11 +92,8 @@ function uniqueId(name = '') {
 	return name + (new Date().getTime()) + Math.round(Math.random() * 1000);
 }
 </script>
-<script src="{{ asset('slim-scroll/jquery.slimscroll.min.js') }}"></script>
-<script src="{{ asset('ion.rangeSlider-2.1.4/js/ion-rangeSlider/ion.rangeSlider.min.js') }}"></script>
-<script src="{{ asset('tooltipster/js/tooltipster.bundle.min.js') }}"></script>
-<script src="{{ asset('dat-audio-player/dat-audio-player.js') }}"></script>
-<script src="{{ asset('js/app.js') }}"></script>
+
+<script src="/js/app.js"></script>
 @stack('scripts')
 
 </body>

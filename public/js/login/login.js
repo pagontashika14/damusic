@@ -12,15 +12,12 @@ function Login(name,pass){
 				email: _self.name,
 				password: _self.pass
 			},
-		})
-		.done(function(result) {
-			callback(true,result);
-		})
-		.fail(function(result) {
-			callback(false,result);
-		})
-		.always(function() {
-			
+			success: function(result) {
+				callback(true,result);
+			},
+			error: function(result) {
+				callback(false,result);
+			}
 		});
 	}
 }

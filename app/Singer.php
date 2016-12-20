@@ -14,7 +14,7 @@ class Singer extends Model
         'pivot'
     ];
 
-    protected $appends = ['image_link'];
+    //protected $appends = ['image_link'];
 
     public function audio()
     {
@@ -24,6 +24,11 @@ class Singer extends Model
     public function image()
     {
         return $this->belongsTo('App\Image');
+    }
+
+    public function nation()
+    {
+        return $this->belongsTo('App\Nation');
     }
 
     public function getImageLinkAttribute() {

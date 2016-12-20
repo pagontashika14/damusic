@@ -12,8 +12,9 @@
 		<br>
 		<button id="btn-audio-files" class="w3-btn w3-round-large w3-deep-orange">Chọn tệp để tải lên</button>
 		<input type="file" id="audio-files" name="audio-files" multiple="" accept=".mp3">
-		<div class="w3-panel w3-pale-blue w3-leftbar w3-border-blue">
-			<p id="show-files-note">Chú ý: Có thể chọn nhiều tệp với chất lượng khác nhau cho một bài hát.</p>
+		<br>
+		<div class="w3-panel w3-leftbar w3-border-blue">
+			<p id="show-files-note">*Chú ý: Có thể chọn nhiều tệp với chất lượng khác nhau cho một bài hát.</p>
 			<div id="show-files"></div>
 		</div>
 	</div>
@@ -31,33 +32,33 @@
 		</ul>
 		<div id="basic-info" class="w3-container tab-type w3-row w3-leftbar w3-border-teal">
 			<br>
-			<div class="w3-col m7">
+			<div class="w3-col m7" style="color:black;">
 				<div style="width: 80%;">
 					<p>
-						<label class="w3-text-blue">Tên bài hát</label>
+						<label style="color:white">Tên bài hát</label>
 						<input id="name" class="w3-input w3-my-border w3-round" type="text">
 					</p>
 					<p>
-						<label class="w3-text-blue">Nghệ sĩ thể hiện</label>
+						<label style="color:white">Nghệ sĩ thể hiện</label>
 						<select id="singers" name="singers" multiple="multiple"></select>
 					</p>
 					<p>
-						<label class="w3-text-blue">Quốc gia</label>
+						<label style="color:white">Quốc gia</label>
 						<select id="nation" name="nation"></select>
 					</p>
 					<p>
-						<label class="w3-text-blue">Thể loại</label>
+						<label style="color:white">Thể loại</label>
 						<select id="types" name="types" multiple="multiple"></select>
 					</p>
 				</div>
 			</div>
 			<div class="w3-col m5">
 				<p>
-					<label class="w3-text-blue">Sáng tác</label>
+					<label style="color:white">Sáng tác</label>
 					<select id="composer" name="composer"></select>
 				</p>
 				<p>
-					<label class="w3-text-blue">Lời bài hát</label>
+					<label style="color:white">Lời bài hát</label>
 					<textarea id="lyric" class="w3-input w3-border" style="resize:none; height: 200px;"></textarea>
 				</p>
 			</div>

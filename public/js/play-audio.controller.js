@@ -3,7 +3,7 @@ DaMusic.Controller = DaMusic.Controller || {};
 
 (function (Controller) {
     Controller.PlayAudio = function () {
-
+        
     }
 
     Controller.PlayAudio.prototype.getAudioInfo = function (code, callback) {
@@ -22,6 +22,8 @@ DaMusic.Controller = DaMusic.Controller || {};
                 self.singers = data.singers;
                 self.types = data.types;
                 self.user = data.user;
+                self.views = data.views_count;
+                self.initEvent();
                 self.setAudioNameLabel();
                 self.setSingersNameLabel();
                 self.setTypeLabel();
@@ -31,12 +33,30 @@ DaMusic.Controller = DaMusic.Controller || {};
                 self.setLyricPage();
                 self.setAudioPlayer();
                 self.loadAudioHint(self.code);
+                self.setAudioViewsLabel();
+                self.setLikeBtn();
             },
             error: function (data) {
                 console.log(data);
             }
         });
 
+    }
+
+    Controller.PlayAudio.prototype.initEvent = function() {
+        $('#btn-like').click(this.like.bind(this));
+    }
+
+    Controller.PlayAudio.prototype.like = function() {
+        // $.ajax({
+        //     url: ''
+        // });
+    }
+
+    Controller.PlayAudio.prototype.setLikeBtn = function() {
+        $.ajax({
+            url: ''
+        });
     }
 
     Controller.PlayAudio.prototype.setAudioNameLabel = function () {
@@ -88,7 +108,19 @@ DaMusic.Controller = DaMusic.Controller || {};
             callback: function (data, pagination) {
                 // template method of yourself
                 var userUpload = data[0].user_name;
-                var lyric = data[0].lyric.replace(/\n/g, "<br />") + '<br><br>';
+                var dtLyric = data[0].lyric.trim();
+                var lyric;
+                if (dtLyric) {
+                    lyric = dtLyric.replace(/\n/g, "<br />") + '<br><br>';
+                    $('#audio-lyric').slimScroll({
+                        height: '300px'
+                    });
+                } else {
+                    lyric = '<span style="font-style: italic;">Hiện chưa có lời bài hát cho ca khúc này.</span>';
+                    $('#audio-lyric').slimScroll({
+                        height: '50px'
+                    });
+                }
                 $('#audio-lyric-user').html(userUpload);
                 $('#audio-lyric').html(lyric);
             }
@@ -108,38 +140,72 @@ DaMusic.Controller = DaMusic.Controller || {};
                 name: self.name,
                 links: self.links,
                 composer: self.composer
-            },
-            // {
-            //     code: 'self.code',
-            //     name: 'self.name',
-            //     links: [
-            //         {
-            //             bit_rate: 128,
-            //             name:'/audio/a4b5a18b731bee5f6a0479f5d87ee334'
-            //         },
-            //         {
-            //             bit_rate: 320,
-            //             name:'/audio/8f877b54186efc012b2fff6e2cfaabe8'
-            //         }
-            //     ],
-            //     composer: 'self.composer'
-            // },
+            }
         ]);
+        this.audio.addEvent('onstart',function(e){
+            $.ajax({
+                url: '/api/audio/add_view/'+e.audio.code,
+            });
+        });
+        this.audio.addEvent('onend',function(e){
+            if(self.audioToNext && $('#auto-next')[0].checked) {
+                window.location.href = "/play-audio/"+self.audioToNext;
+            }
+        });
         this.audio.start();
     }
 
-    Controller.PlayAudio.prototype.loadAudioHint = function(code) {
-         $.ajax({
+    Controller.PlayAudio.prototype.setAudioViewsLabel = function() {
+        $('#audio_views').html(this.views);
+    }
+
+    Controller.PlayAudio.prototype.loadAudioHint = function (code) {
+        var self = this;
+        $.ajax({
             url: '/api/audio/random?limit=10&code=' + code,
             dataType: 'json',
             success: function (data) {
-                console.log(data);
+                self.setAudioHint(data);
             },
             error: function (data) {
                 console.log('error on load hint');
                 console.log(data);
             }
         });
+    }
+
+    Controller.PlayAudio.prototype.setAudioHint = function (data) {
+        let self = this;
+        self.audioToNext = data[0] ? data[0].code : undefined;
+        let divContainer = $('#hint-container');
+        data.forEach(e => {
+            let divHint = self.initDivHint(e.code, e.singers[0].image, e.name, e.singers);
+            divContainer.append(divHint);
+        });
+    }
+
+    Controller.PlayAudio.prototype.initDivHint = function (code, img, name, singers) {
+        let imgLink = img ? img.name : "/api/image/index/124794cb4fbbca1a578d2d474998096a";
+        let link = '/play-audio/' + code;
+        let divHint = $('<div class="audio-hint-element"></div>');
+        let aTag = $('<a href="' + link + '" class=""></a>');
+        let divImg = $('<div class="image-fill-container image"></div>');
+        let image = $('<img class="wide w3-hover-shadow" src="' + imgLink + '" />');
+        let divName = $('<div class="hint-name"></div>');
+        let hName = $('<div>' + name + '</div>');
+        let divSingers = $('<div class="hint-singers"></div>');
+        divSingers.append('<a href="/singer/' + singers[0].id + '">' + singers[0].stage_name + '</a>');
+        for (let i = 1, len = singers.length; i < len; i++) {
+            divSingers.append('<a href="/singer/' + singers[i].id + '">, ' + singers[i].stage_name + '</a>');
+        }
+        divName.append(hName);
+        divName.append(divSingers);
+        divImg.append(image);
+        aTag.append(divImg);
+        aTag.append(divName);
+        divHint.append(aTag);
+
+        return divHint;
     }
 
 })(DaMusic.Controller)

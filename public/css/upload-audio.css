@@ -1,5 +1,8 @@
+body {
+    background: url('../img/background-2.jpg');
+}
+
 #upload-content {
-    background-color: white;
     width: 100%;
     min-height: 80vh;
 }

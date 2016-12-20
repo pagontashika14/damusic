@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['middleware' => 'auth:api'], function () {
+Route::group(['middleware' => 'AuthApi'], function () {
     Route::get('/user', function (Request $request) {
     	$id = Auth::user()->id;
     	$user = App\User::where('id',$id)
@@ -22,30 +22,47 @@ Route::group(['middleware' => 'auth:api'], function () {
 	    return $user;
 	});
 });
+// Route::get('test',function (Request $request){
+//     dd($request->cookie('laravel_session'));
+//     $result = App\Audio::where('code','=','c5fcf94651a430d62ef00b8ef24a186d')->with('singers.image')->first();
+//     //$result = App\Singer::where('id','=',9)->with('image')->first();
+// 	return $result;
+// });
 Route::post('test',function (Request $request){
-    $result = App\Singer::where('id','=',9)->with('image')->first();
-	return $result;
+    return $request->all();
 });
+
 Route::post('login','UserController@login');
+Route::post('logout','UserController@logout')->middleware('AuthApi');
 Route::post('register','UserController@register');
 Route::group(['prefix' => 'audio'], function () {
     Route::post('upload','AudioController@upload');
     Route::get('index/{code}','AudioController@index');
     Route::get('random','AudioController@getRandomAudio');
+    Route::get('add_view/{code}','AudioController@addView');
+    Route::get('month_top','AudioController@getTopAudioOfMonth');
+    Route::get('month_top/nation/{id}','AudioController@getTopAudioOfMonthByNation');
+    Route::get('search','AudioController@searchSimilar');
 });
 Route::group(['prefix' => 'nation'], function () {
     Route::get('search','NationController@search');
 });
 Route::group(['prefix' => 'singer'], function () {
-    Route::get('/{id}', 'SingerController@index');
+    Route::get('index/{id}', 'SingerController@index');
     Route::get('search','SingerController@searchSimilar');
     Route::post('insert','SingerController@insert');
+    Route::get('searchfull','SingerController@searchFull');
 });
 Route::group(['prefix' => 'image'], function () {
-    Route::get('/{code}','ImageController@index');
+    Route::get('index/{code}','ImageController@index');
    Route::post('upload','ImageController@upload');
 });
 Route::group(['prefix' => 'type'], function () {
    Route::get('search','TypeController@search');
    Route::post('insert','TypeController@insert');
+});
+
+Route::group(['prefix' => 'banner'], function () {
+   Route::get('get','BannerController@index');
+   Route::post('insert','BannerController@index')->middleware('AuthApi');
 });

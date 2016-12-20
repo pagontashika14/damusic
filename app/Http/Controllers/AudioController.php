@@ -11,8 +11,10 @@ use App\Audio;
 use App\AudioLink;
 use App\Singer;
 use App\Lyric;
+use App\AudioView;
 use Validator;
 use DB;
+use Carbon\Carbon;
 
 class AudioController extends Controller
 {
@@ -26,11 +28,12 @@ class AudioController extends Controller
     {
         $audio = Audio::where('code', $code)
                 ->with('singers', 'types', 'nation','links', 'lyrics', 'user','composer')
+                ->withCount('views')
                 ->first();
         return $audio;
     }
 
-    public function getAudio($code)
+    public function getAudio(Request $request, $code)
     {
         $files = File::glob($this->audio_path.$code.'.*');
         if (count($files) > 0) {
@@ -41,11 +44,46 @@ class AudioController extends Controller
         }
     }
 
+    public function addView(Request $request, $code) {
+        $audio = Audio::whereHas('links',function($query) use($code) {
+            $query->where('name', '/audio/'.$code);
+        })->first();
+        if($audio) {
+            $unique = $request->unique_string;
+            if(!$unique) return;
+            $oldAudioView = AudioView::where('unique_string',$unique)->where('audio_id',$audio->id)->orderBy('created_at','desc')->first();
+            if(!$oldAudioView) {
+                $audioView = new AudioView;
+                $audioView->audio_id = $audio->id;
+                $audioView->unique_string = $unique;
+                $audioView->save();
+                return;
+            }
+            $now = Carbon::now();
+            $dif = $oldAudioView->created_at->diffInMinutes($now,false);
+            if($dif < 3) return;
+            $audioView = new AudioView;
+            $audioView->audio_id = $audio->id;
+            $audioView->unique_string = $unique;
+            $audioView->save();
+        }
+    }
+
+    public function searchSimilar(Request $request) {
+        $text = $request->text;
+        $audio = Audio::select(DB::raw('*,similarity(name, \''.$text.'\') as sml'))
+                        ->with('singers.image','composer.image','types')
+                        ->orderBy('sml','desc')
+                        ->paginate(8);
+                        // ->get();
+        return $audio;
+    }
+
     public function getRandomAudio(Request $request)
     {
         $audio = Audio::where('code','!=',$request->code)
                         ->orderBy(DB::raw('RANDOM()'))
-                        ->with('singers','composer')
+                        ->with('singers.image','composer.image')
                         ->take($request->limit)
                         ->get();
         return $audio;
@@ -136,5 +174,17 @@ class AudioController extends Controller
             }
         }
         return $code;
+    }
+
+    public function getTopAudioOfMonth(Request $request) {
+        $audio = Audio::with('singers.image','composer.image')->withCount('viewsOfMonth')->orderBy('views_of_month_count','desc')->take(10)->get();
+        return $audio;
+    }
+
+    public function getTopAudioOfMonthByNation($id) {
+        $audio = Audio::where('nation_id',$id)
+                    ->with('singers.image','composer.image')->withCount('viewsOfMonth')
+                    ->orderBy('views_of_month_count','desc')->take(8)->get();
+        return $audio;
     }
 }

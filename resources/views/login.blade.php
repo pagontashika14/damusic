@@ -7,15 +7,15 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3 -->
-  <link rel="stylesheet" href="{{asset('bootstrap-3.3.7-dist/css/bootstrap.min.css',env('HTTPS_ASSET'))}}">
+  <link rel="stylesheet" href="/bootstrap-3.3.7-dist/css/bootstrap.min.css">
   <!-- Font-awesome -->
-  <link rel="stylesheet" href="{{asset('font-awesome-4.7.0/css/font-awesome.min.css',env('HTTPS_ASSET'))}}">
+  <link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="{{asset('ionicons/css/ionicons.min.css',env('HTTPS_ASSET'))}}">
+  <link rel="stylesheet" href="/ionicons/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{asset('admin-lte/dist/css/AdminLTE.min.css',env('HTTPS_ASSET'))}}">
+  <link rel="stylesheet" href="/admin-lte/dist/css/AdminLTE.min.css">
   <!-- iCheck -->
-  <link rel="stylesheet" href="{{asset('admin-lte/plugins/iCheck/square/blue.css',env('HTTPS_ASSET'))}}">
+  <link rel="stylesheet" href="/admin-lte/plugins/iCheck/square/blue.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -69,21 +69,23 @@
 <!-- /.login-box -->
 
 <!-- jQuery 3 -->
-<script src="{{ asset('js/jquery-3.1.1.min.js',env('HTTPS_ASSET')) }}"></script>
+<script src="/js/jquery-3.1.1.min.js"></script>
 <!-- Bootstrap 3 -->
-<script src="{{asset('bootstrap-3.3.7-dist/js/bootstrap.min.js',env('HTTPS_ASSET'))}}"></script>
+<script src="/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <!-- iCheck -->
-<script src="{{asset('admin-lte/plugins/iCheck/icheck.min.js',env('HTTPS_ASSET'))}}"></script>
+<script src="/admin-lte/plugins/iCheck/icheck.min.js"></script>
 
-<script src="{{ asset('js/login/login.js',env('HTTPS_ASSET')) }}"></script>
+<script src="js/login/login.js"></script>
 <script>
   $(function () {
+    
     $('input').iCheck({
       checkboxClass: 'icheckbox_square-blue',
       radioClass: 'iradio_square-blue',
       increaseArea: '20%' // optional
     });
   });
+  var currentLink = '{{ $current_link }}';
   function login(){
     var email = $('#ip_email').val();
     var password = $('#ip_password').val();
@@ -95,7 +97,7 @@
         localStorage.setItem("api_token", data.api_token);
         sessionStorage.setItem("hello_message", data.name);
 
-        location.replace("/");
+        location.replace(currentLink);
       }
       else{
         if (data.status == 422) {

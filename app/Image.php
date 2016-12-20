@@ -10,4 +10,9 @@ class Image extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function singers()
+    {
+        return $this->hasMany('App\Singer');
+    }
 }

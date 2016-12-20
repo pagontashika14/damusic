@@ -43,7 +43,7 @@ class ImageController extends Controller
     	$ext = $file->getClientOriginalExtension();
     	if ( $ext == 'jpg' || $ext == 'png') {
     		$name = md5(File::get($file->getRealPath()));
-            $link = '/images/'.$name;
+            $link = '/api/image/index/'.$name;
             $this->create($link);
             $file->storeAs('images', $name.'.'.$ext);
     		return $link;

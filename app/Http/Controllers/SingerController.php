@@ -13,7 +13,7 @@ use App\Helper\FillError;
 class SingerController extends Controller
 {
 	public function index($id) {
-		return Singer::where('id','=',$id)->get();
+		return Singer::where('id',$id)->with('image','nation')->first();
 	}
 
 	public function searchExactly(Request $request){
@@ -27,52 +27,20 @@ class SingerController extends Controller
 
 	public function searchSimilar(Request $request){
 		$text = $request->search;
-		$lower_text = strtolower(StringHelper::VnStringFilter($text));
-		$r = array();
-		foreach (Singer::cursor() as $singer) {
-			$stage_name = $singer->stage_name;
-			$query = strtolower(StringHelper::VnStringFilter($stage_name));
-			similar_text($query,$lower_text,$percent);
-			$sin = ['id' => $singer->id, 'text' => $stage_name, 'percent' => $percent];
-			$count = count($r);
-			if ($count < 5) {
-				$i = 0;
-				for (; $i < $count; $i++) { 
-					if ($sin['percent'] >= $r[$i]['percent']) {
-						break;
-					}
-				}
-				$temp = array();
-				for ($j=$count-1; $j >= $i; $j--) { 
-					array_push($temp,array_pop($r));
-				}
-				array_push($r, $sin);
-				$countT = count($temp);
-				for ($j=0; $j < $countT; $j++) { 
-					array_push($r, array_pop($temp));
-				}
-			} else {
-				$i = 0;
-				for (; $i < 5; $i++) { 
-					if ($sin['percent'] >= $r[$i]['percent']) {
-						break;
-					}
-				}
-				if ($i == 5) {
-					continue;
-				}
-				$temp = array();
-				for ($j=$count-1; $j >= $i; $j--) { 
-					array_push($temp,array_pop($r));
-				}
-				array_push($r, $sin);
-				$countT = count($temp);
-				for ($j=0; $j < $countT - 1; $j++) { 
-					array_push($r, array_pop($temp));
-				}
-			}
-		}
-		return $r;
+		$singers = Singer::select(DB::raw('id,stage_name as text,similarity(stage_name, \''.$text.'\') as percent'))
+                        ->orderBy('percent','desc')
+						->take(5)
+                        ->get();
+        return $singers;
+	}
+
+	public function searchFull(Request $request){
+		$text = $request->text;
+		$singers = Singer::select(DB::raw('*,similarity(stage_name, \''.$text.'\') as sml'))
+						->with('image','nation')
+                        ->orderBy('sml','desc')
+						->paginate(8);
+        return $singers;
 	}
 
 	public function insert(Request $request){
