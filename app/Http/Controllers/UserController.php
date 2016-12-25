@@ -39,6 +39,7 @@ class UserController extends Controller
 			]);
 		}
 		$user->remember_token = Carbon::now()->addHours(2)->toDateTimeString();
+		$user->api_token = bcrypt($user->email.$user->remember_token);
 		$user->save();
 		return response($user)->cookie(
 			'api_token', $user->api_token, 120

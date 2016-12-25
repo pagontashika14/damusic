@@ -22,6 +22,10 @@ Route::get('/login', function (Request $request) {
     return view('login',['current_link' => $request->current_link]);
 })->name('login')->middleware('rtc');
 
+Route::get('/register', function (Request $request) {
+    return view('register',['current_link' => $request->current_link]);
+})->middleware('rtc');
+
 Route::get('/logout', function (Request $request) {
     $userController = new App\Http\Controllers\UserController;
     $userController->logout($request);
@@ -36,12 +40,20 @@ Route::get('/play-audio/{code}', function ($code) {
     return view('play-audio',['code' => $code]);
 });
 
+Route::get('/playlist', function (Request $request) {
+    return view('playlist',['code' => $request->code]);
+});
+
 Route::get('/search', function (Request $request) {
     return view('search',['text' => $request->text]);
 });
 
 Route::get('/singer/{id}', function ($id) {
     return view('singer',['id' => $id]);
+});
+
+Route::get('/user', function () {
+    return view('user');
 });
 
 Route::get('audio/{code}', 'AudioController@getAudio')->middleware('AuthApiKey');

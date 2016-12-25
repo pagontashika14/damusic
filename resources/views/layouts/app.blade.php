@@ -41,19 +41,25 @@
 		</div>
 
 		<!-- End Grid -->
+		
 	</div>
 	<!-- End Page Container -->
 </div>
 <br>
-
+@include('general.create-image-modal')
+@include('general.create-singer-modal')
+@include('general.create-type-modal')
+@include('general.create-playlist-modal')
+<iframe id="i-download" style="display:none;"></iframe>
 <!-- Footer -->
-<footer class="w3-container w3-theme-d3 w3-padding-16">
+<!--<footer class="w3-container w3-theme-d3 w3-padding-16">
+	
 	<h5>About me</h5>
 </footer>
 
 <footer class="w3-container w3-theme-d5">
 	<p>Designed and Developed by Dương Tuấn Đạt, 2016</p>
-</footer>
+</footer>-->
 <script src="/js/jquery-3.1.1.min.js"></script>
 <script src="/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script src="/select2-4.0.3/dist/js/select2.full.js"></script>
@@ -65,35 +71,44 @@
 <script src="/tooltipster/js/tooltipster.bundle.min.js"></script>
 <script src="/dat-audio-player/dat-audio-player.js"></script>
 <script>
-// Accordion
-function myFunction(id) {
-	var x = document.getElementById(id);
-	if (x.className.indexOf("w3-show") == -1) {
-		x.className += " w3-show";
-		x.previousElementSibling.className += " w3-theme-d1";
-	} else { 
-		x.className = x.className.replace("w3-show", "");
-		x.previousElementSibling.className = 
-		x.previousElementSibling.className.replace(" w3-theme-d1", "");
+	// Accordion
+	function myFunction(id) {
+		var x = document.getElementById(id);
+		if (x.className.indexOf("w3-show") == -1) {
+			x.className += " w3-show";
+			x.previousElementSibling.className += " w3-theme-d1";
+		} else { 
+			x.className = x.className.replace("w3-show", "");
+			x.previousElementSibling.className = 
+			x.previousElementSibling.className.replace(" w3-theme-d1", "");
+		}
 	}
-}
 
-// Used to toggle the menu on smaller screens when clicking on the menu button
-function openNav() {
-	var x = document.getElementById("navDemo");
-	if (x.className.indexOf("w3-show") == -1) {
-		x.className += " w3-show";
-	} else { 
-		x.className = x.className.replace(" w3-show", "");
+	// Used to toggle the menu on smaller screens when clicking on the menu button
+	function openNav() {
+		var x = document.getElementById("navDemo");
+		if (x.className.indexOf("w3-show") == -1) {
+			x.className += " w3-show";
+		} else { 
+			x.className = x.className.replace(" w3-show", "");
+		}
 	}
-}
 
-function uniqueId(name = '') {
-	return name + (new Date().getTime()) + Math.round(Math.random() * 1000);
-}
+	function uniqueId(name = '') {
+		return name + (new Date().getTime()) + Math.round(Math.random() * 1000);
+	}
+
+	function Download(url) {
+		// document.getElementById('i-download').filename = 'abc.mp3';
+		// document.getElementById('i-download').src = url;
+		
+	};
 </script>
 
 <script src="/js/app.js"></script>
+<script>
+	var appController = new DaMusic.Controller.App();
+</script>
 @stack('scripts')
 
 </body>

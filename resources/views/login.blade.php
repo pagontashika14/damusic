@@ -61,7 +61,7 @@
     <!-- /.social-auth-links -->
 
     <a href="#">Quên mật khẩu</a><br>
-    <a href="/register" class="text-center">Đăng ký thành viên</a>
+    <a id="register-link" href="/register" class="text-center">Đăng ký thành viên</a>
 
   </div>
   <!-- /.login-box-body -->
@@ -74,7 +74,7 @@
 <script src="/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <!-- iCheck -->
 <script src="/admin-lte/plugins/iCheck/icheck.min.js"></script>
-
+<script src="/js/notify.min.js"></script>
 <script src="js/login/login.js"></script>
 <script>
   $(function () {
@@ -86,6 +86,7 @@
     });
   });
   var currentLink = '{{ $current_link }}';
+  $('#register-link').attr('href','/register?current_link='+currentLink);
   function login(){
     var email = $('#ip_email').val();
     var password = $('#ip_password').val();
@@ -98,29 +99,13 @@
         sessionStorage.setItem("hello_message", data.name);
 
         location.replace(currentLink);
+      } else {
+        $.notify("Error", {
+            globalPosition: 'bottom left',
+            className: 'success',
+        });
       }
-      else{
-        if (data.status == 422) {
-          var e = data.responseJSON;
-          var body = '';
-          Object.keys(e.data).forEach(function(key) {
-            if (key == 'email') {
-              $('#div_email').addClass('has-error');
-            }
-            if (key == 'password') {
-              $('#div_password').addClass('has-error');
-            }
-            e.data[key].forEach(function(str){
-              body += str + '<br>';
-            });
-          });
-          showAlertD('Lỗi xác nhận', body,6000);
-        } else {
-          showAlertD('Error', 'Message');
-          
-        }
-      }
-    })
+    });
   }
 </script>
 </body>

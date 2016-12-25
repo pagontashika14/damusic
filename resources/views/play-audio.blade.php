@@ -41,8 +41,13 @@
 			</div>
 			<div class="w3-col m12 margin-top-10 w3-display-container">
 				<button id="btn-like" class="w3-btn w3-gray w3-round"><i class="fa fa-heart-o" aria-hidden="true"></i> Thích</button>
-				<button class="w3-btn w3-blue w3-round"><i class="fa fa-plus" aria-hidden="true"></i> Thêm vào</button>
-				<button class="w3-btn w3-teal w3-round"><i class="fa fa-download" aria-hidden="true"></i> Tải về</button>
+				<button class="w3-btn w3-blue w3-round" onclick="playAudioController.showAddAudioPlaylistModal()"><i class="fa fa-plus" aria-hidden="true"></i> Thêm vào</button>
+				<div class="w3-dropdown-hover">
+					<button class="w3-btn w3-teal w3-round"><i class="fa fa-download" aria-hidden="true"></i> Tải về</button>
+					<div id="audio-download-content" class="w3-dropdown-content w3-border w3-card-4">
+						
+					</div>
+				</div>
 				<span class="w3-right">
 					<i class="fa fa-headphones" aria-hidden="true" style="font-size:24px;"></i> <span id="audio_views" style="font-size:24px;">0</span>
 				</span>
@@ -80,7 +85,7 @@
 		</div>
 	</div>
 </div>
-
+@include('general.add-audio-playlist-modal')
 @stop
 
 @push('scripts')

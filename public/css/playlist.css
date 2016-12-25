@@ -1,0 +1,24 @@
+body {
+    background: url('../img/background-1.jpg');
+}
+
+.font-3 {
+    font-size: 20px;
+}
+
+.font-small {
+    font-weight: 100;
+}
+
+.play-music {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#audio-lyric {
+    margin-top: 20px;
+    /*height: 300px;
+    overflow-y: scroll;*/
+}
+
+

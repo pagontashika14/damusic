@@ -5,6 +5,7 @@
         if (options.skin) {
             this.loadSkin(options.skin);
         }
+        this.isLoadPlaylist = options.hasPlaylist;
         this.initMode();
         this.loadAudioControl();
         this.initEvent();
@@ -13,16 +14,16 @@
         }
     }
 
-    Controller.DatAudioPlayer.prototype.addEvent = function(name,fun,isStop = false) {
-        if(!this.myEvent[name]) {
+    Controller.DatAudioPlayer.prototype.addEvent = function (name, fun, isStop = false) {
+        if (!this.myEvent[name]) {
             this.myEvent[name] = [];
         }
         this.myEvent[name].push(fun);
     }
 
-    Controller.DatAudioPlayer.prototype.emitEvent = function(name,data) {
-        if(!this.myEvent[name]) return;
-        for(let i = 0, len = this.myEvent[name].length; i < len; i++) {
+    Controller.DatAudioPlayer.prototype.emitEvent = function (name, data) {
+        if (!this.myEvent[name]) return;
+        for (let i = 0, len = this.myEvent[name].length; i < len; i++) {
             this.myEvent[name][i](data);
         }
     }
@@ -132,7 +133,7 @@
     }
 
     Controller.DatAudioPlayer.prototype.getSkinSingerMedium = function () {
-        this.divContent = $('<div class="dat-content-singer-medium w3-display-container w3-round"></div>');
+        this.divContent = $('<div class="dat-content-singer-medium w3-display-container"></div>');
         let divOpacity = $('<div class="dat-opacity-singer-medium"></div>');
         this.divContent.append(divOpacity);
         let bar = $('<div class="dat-bar-singer-medium w3-display-bottommiddle"></div>');
@@ -140,7 +141,7 @@
         let divTitle = $('<div class="dat-title-singer-medium w3-display-topmiddle w3-display-container"></div>');
         divOpacity.append(divTitle);
         let title = $('<div class="w3-display-middle dat-text-title-single-medium w3-text-shadow">Ca khúc: </div>');
-        this.audioTitle = $('<span></span>');
+        this.audioTitle = $('<span>Chưa có</span>');
         title.append(this.audioTitle);
         divTitle.append(title);
         this.divTimeline = $('<div class="dat-timeline-single-medium"></div>');
@@ -195,8 +196,9 @@
                 this.btnPlay.addClass('fa-play').removeClass('fa-pause');
             }
         }.bind(this);
-
-        return this.divContent;
+        this.divContentContainer = $('<div class="audio-player-content-container"></div>');
+        this.divContentContainer.append(this.divContent);
+        return this.divContentContainer;
     }
 
     Controller.DatAudioPlayer.prototype.test = function () {
@@ -220,13 +222,28 @@
         this.initSlider();
     }
 
+    Controller.DatAudioPlayer.prototype.getAudioIndex = function (code) {
+        for (let i = 0, len = this.source.length; i < len; i++) {
+            if (this.source[i].code == code) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
     Controller.DatAudioPlayer.prototype.onAudioEnded = function () {
-        let audio = this.source[this.currentAudio];
+        var self = this;
+        let audio = this.getCurrentAudio();
+        let index = this.getAudioIndex(audio.code);
         let link = this.getLink(audio.links);
-        let isStop = this.emitEvent('onend',{
-            audio: audio,
-            currentLink: link.name
-        });
+        if (index == this.source.length - 1) {
+            this.emitEvent('onend', {
+                player: self,
+                audio: audio,
+                currentLink: link.name
+            });
+            
+        }
         let next = this.getNextAudio();
         if (next != undefined) {
             this.next();
@@ -245,6 +262,66 @@
         // source = [{code:'', name:'', links=[{bitRate:'', link:''}], singer:''}]
         this.baseSource = source;
         this.source = this.getSource();
+        if(this.isLoadPlaylist) {
+            this.loadPlaylist();
+        }
+    }
+
+    Controller.DatAudioPlayer.prototype.loadPlaylist = function() {
+        var self = this;
+        this.divPlaylist = $('<div class="audio-player-playlist"></div>');
+        this.divContentContainer.append(this.divPlaylist);
+        for(let i=0,len=this.baseSource.length;i<len;i++){
+            let item = this.getPlaylistItem(i,this.baseSource[i]);
+            this.divPlaylist.append(item);
+        }
+
+        this.addEvent('onstart',function(e){
+            self.highlightItem(e.audio.code);
+        })
+    }
+
+    Controller.DatAudioPlayer.prototype.getPlaylistItem = function(id,audio) {
+        var self = this;
+        let item = $('<div id="playlist-'+audio.code+'" class="audio-player-playlist-item"></div>');
+        let row = $('<div class="w3-row"></div>');
+        item.append(row);
+        let divId = $('<div class="w3-col m1"></div>');
+        let playid = $('<div class="playlist-item center">'+id+'</div>');
+        divId.append(playid);
+        let divName = $('<div class="w3-col m6"></div>');
+        let name = $('<div class="playlist-item">'+audio.name+'</div>');
+        divName.append(name);
+        let singerText = audio.singers[0].stage_name;
+        for(let i=1,len=audio.singers.length;i<len;i++) {
+            singerText += ', ' + audio.singers[i].stage_name;
+        }
+        let divSinger = $('<div class="w3-col m4" style="overflow:hidden"></div>');
+        let singer = $('<div class="playlist-item">'+singerText+'</div>');
+        divSinger.append(singer);
+        let divForward = $('<div class="w3-col m1"></div>');
+        let forward = $('<div class="playlist-item center"><i class="fa fa-arrow-right" aria-hidden="true"></i></div>');
+        divForward.append(forward);
+        divForward.click(function(e){
+            e.stopPropagation();
+            window.location.href = '/play-audio/' + audio.code;
+        });
+        
+        row.append(divId);
+        row.append(divName);
+        row.append(divSinger);
+        row.append(divForward);
+        item.click(function() {
+            self.currentAudio = audio.code;
+            self.source = self.getSource();
+            self.start()
+        });
+        return item;
+    }
+
+    Controller.DatAudioPlayer.prototype.highlightItem = function(code) {
+        $('.audio-player-playlist-item').removeClass('highlight-item');
+        $('#playlist-'+code).addClass('highlight-item');
     }
 
     Controller.DatAudioPlayer.prototype.getSource = function () {
@@ -253,36 +330,37 @@
                 return this.baseSource;
             case 'one':
                 if (this.currentAudio == undefined) {
+                    // this.currentAudio = 0;
                     return [this.baseSource[0]];
                 } else {
-                    return [this.baseSource[this.currentAudio]];
+                    let rs = [this.getCurrentAudio()];
+                    return rs;
                 }
             case 'random':
-                let oldCode;
-                if (this.currentAudio == undefined) {
-                    oldCode = this.baseSource[0].code;
-                } else {
-                    oldCode = this.baseSource[this.currentAudio].code;
-                }
                 let data = _.shuffle(this.baseSource);
-                for (let i = 0, len = data.length; i < len; i++) {
-                    if (data[i].code == oldCode) {
-                        this.currentAudio = i;
-                        break;
-                    }
-                }
                 return data;
         }
     }
 
+    Controller.DatAudioPlayer.prototype.getCurrentAudio = function () {
+        var self = this;
+        return _.find(this.baseSource, e => e.code == self.currentAudio);
+    }
+
     Controller.DatAudioPlayer.prototype.getNextAudio = function () {
-        if (this.currentAudio == undefined || this.sortMode[this.currentSortMode] == 'one') {
-            return 0;
+        if (this.currentAudio == undefined && this.source.length > 0) {
+            return this.source[0].code;
         }
-        if (this.currentAudio == this.source.length - 1) {
-            return this.isLoop ? 0 : undefined;
+        for (let i = 0, len = this.source.length; i < len; i++) {
+            if (this.source[i].code == this.currentAudio) {
+                if (i == this.source.length - 1) {
+                    return this.isLoop ? this.source[0].code : undefined;
+                } else {
+                    return this.source[i + 1].code;
+                }
+            }
         }
-        return this.currentAudio + 1;
+        return undefined;
     }
 
     Controller.DatAudioPlayer.prototype.getLink = function (links) {
@@ -308,7 +386,7 @@
     }
 
     Controller.DatAudioPlayer.prototype.stop = function () {
-        this.currentAudio = 0;
+        this.currentAudio = this.source[0].code;
         this.start(false);
     }
 
@@ -316,7 +394,10 @@
         if (this.currentAudio == undefined) {
             this.currentAudio = this.getNextAudio();
         }
-        let audio = this.source[this.currentAudio];
+        let audio = this.getCurrentAudio();
+        if(!audio) {
+            return;
+        }
         let link = this.getLink(audio.links);
         this.setLabelQuality(link.bit_rate);
         this.divAudio.src = link.name;
@@ -330,18 +411,22 @@
         this.updateAudioTitle(audio.name);
         this.onStart(audio);
 
-        this.emitEvent('onstart',{
+        this.emitEvent('onstart', {
             audio: audio,
             currentLink: link.name
         });
     }
 
-    Controller.DatAudioPlayer.prototype.updateAudioTitle = function(title) {
+    Controller.DatAudioPlayer.prototype.updateAudioTitle = function (title) {
         this.audioTitle.html(title);
     }
 
     Controller.DatAudioPlayer.prototype.changeQuality = function () {
-        let links = this.source[this.currentAudio].links;
+        let audio = this.getCurrentAudio();
+        if(!audio) {
+            return;
+        }
+        let links = audio.links;
         if (links.length <= 1) return;
         if (this.currentQuality == links.length - 1) {
             this.currentQuality = 0;
@@ -361,9 +446,12 @@
     }
 
     Controller.DatAudioPlayer.prototype.next = function () {
-        let audio = this.source[this.currentAudio];
+        let audio = this.getCurrentAudio();
+        if(!audio) {
+            return;
+        }
         let link = this.getLink(audio.links);
-        this.emitEvent('onnext',{
+        this.emitEvent('onnext', {
             audio: audio,
             currentLink: link.name
         });
@@ -443,6 +531,9 @@
     }
 
     Controller.DatAudioPlayer.prototype.btnPlayClick = function () {
+        if(this.source.length == 0) {
+            return;
+        }
         if (this.divAudio.paused) {
             this.play();
         } else {

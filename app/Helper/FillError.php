@@ -11,4 +11,11 @@ class FillError {
 		    'data' => $error
 		], 422);
 	}
+
+	public static function Authorization($error){
+		return Response::json([
+			'message' => 'Cấm',
+		    'data' => $error
+		], 423);
+	}
 }

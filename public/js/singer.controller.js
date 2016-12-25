@@ -11,12 +11,12 @@ DaMusic.Controller = DaMusic.Controller || {};
         $.ajax({
             url: '/api/singer/index/'+id,
             success: function(data) {
-                console.log(data);
                 self.setStageName(data.stage_name);
                 self.setName(data.name || 'Chưa rõ');
                 self.setBirthday(data.birthday || 'Chưa rõ');
                 self.setNation(data.nation.name);
                 self.setDescription(data.description);
+                self.setImage(data.image);
             },
             error: function(data) {
                 console.log('--error--');
@@ -33,6 +33,12 @@ DaMusic.Controller = DaMusic.Controller || {};
     Controller.Singer.prototype.setName = function(name) {
         this.name = name;
         $('#name').html(name);
+    }
+
+    Controller.Singer.prototype.setImage = function(image) {
+        if(image) {
+            $('#image').attr('src',image.name);
+        }
     }
 
     Controller.Singer.prototype.setBirthday = function(birthday) {

@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Helper\FillError;
+use App\User;
 
 class AuthApi
 {
@@ -19,10 +20,14 @@ class AuthApi
     public function handle($request, Closure $next)
     {
         $token = $request->cookie('api_token');
-        $request->offsetSet('api_token', $token);
-        Auth::setRequest($request);
-        if(Auth::check()) {
-            $user = Auth::user();
+        if($token) {
+            $request->offsetSet('api_token', $token);
+        }
+        $user = User::where('api_token',$request->api_token)->with('roles')->first();
+        if($user) {
+            $request->offsetSet('auth_user_id', $user->id);
+            $role = $user->roles[0]->order;
+            $request->offsetSet('auth_user_role', $role);
             $timeExpire = Carbon::parse($user->remember_token);
             $now = Carbon::now();
             $dif = $now->diffInMinutes($timeExpire,false);
@@ -31,7 +36,7 @@ class AuthApi
             }
         }
         if($request->no_redirect){
-            return ['status' => false, 'data' => null];
+            return response(null);
         } else {
             return redirect()->route('login',['current_link' => $request->path()]);
         }

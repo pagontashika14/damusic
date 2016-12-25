@@ -3,7 +3,7 @@ DaMusic.Controller = DaMusic.Controller || {};
 
 (function (Controller) {
     Controller.PlayAudio = function () {
-        
+        this.isSetupPlaylist = false;
     }
 
     Controller.PlayAudio.prototype.getAudioInfo = function (code, callback) {
@@ -35,6 +35,7 @@ DaMusic.Controller = DaMusic.Controller || {};
                 self.loadAudioHint(self.code);
                 self.setAudioViewsLabel();
                 self.setLikeBtn();
+                self.setDownloadBtn();
             },
             error: function (data) {
                 console.log(data);
@@ -43,20 +44,91 @@ DaMusic.Controller = DaMusic.Controller || {};
 
     }
 
-    Controller.PlayAudio.prototype.initEvent = function() {
+    Controller.PlayAudio.prototype.initEvent = function () {
         $('#btn-like').click(this.like.bind(this));
     }
 
-    Controller.PlayAudio.prototype.like = function() {
+    Controller.PlayAudio.prototype.like = function () {
         // $.ajax({
         //     url: ''
         // });
     }
 
-    Controller.PlayAudio.prototype.setLikeBtn = function() {
+    Controller.PlayAudio.prototype.setLikeBtn = function () {
         $.ajax({
             url: ''
         });
+    }
+
+    Controller.PlayAudio.prototype.setDownloadBtn = function () {
+        $('#audio-download-content').html('');
+        for (let i = 0, len = this.links.length; i < len; i++) {
+            let link = this.links[i];
+            let s = `
+                <a href="`+ link.name + `" download="` + this.name + ' ' + link.bit_rate + `.mp3">` + link.bit_rate + ' kbps' + `</a>
+            `;
+            $('#audio-download-content').append(s);
+        }
+    }
+
+    Controller.PlayAudio.prototype.showAddAudioPlaylistModal = function () {
+        if (!this.isSetupPlaylist) {
+            this.setupPlaylist();
+        }
+        this.audio.pause();
+        $('#add-audio-playlist-modal').modal('toggle');
+    }
+
+    Controller.PlayAudio.prototype.setupPlaylist = function () {
+        $("#aapm-playlist").select2({
+            ajax: {
+                url: '/api/playlist/getPlaylistByUser',
+                processResults: function (data, params) {
+                    var results = [];
+                    data.forEach(function (e) {
+                        results.push({ id: e.id, text: e.name });
+                    });
+                    return {
+                        results: results,
+                    };
+                },
+                cache: true
+            },
+            placeholder: 'Playlist...',
+        });
+    }
+
+    Controller.PlayAudio.prototype.addAudioPlaylist = function () {
+        var self = this;
+        var playlist_id = $('#aapm-playlist').val();
+        if(!playlist_id) return;
+        $.ajax({
+            url: '/api/playlist/add_audio',
+            method: 'POST',
+            data: {
+                audio_id: self.id,
+                playlist_id: playlist_id
+            },
+            success: function (data) {
+                $.notify("Thêm nhạc thành công", {
+                    globalPosition: 'bottom left',
+                    className: 'success',
+                });
+                $('#add-audio-playlist-modal').modal('toggle');
+                self.audio.play();
+                
+            },
+            error: function (data) {
+                console.log('--error--');
+                console.log(data);
+            }
+        });
+
+
+    }
+
+    Controller.PlayAudio.prototype.hiddenAudioPlaylist = function () {
+        this.audio.play();
     }
 
     Controller.PlayAudio.prototype.setAudioNameLabel = function () {
@@ -142,20 +214,21 @@ DaMusic.Controller = DaMusic.Controller || {};
                 composer: self.composer
             }
         ]);
-        this.audio.addEvent('onstart',function(e){
+        this.audio.addEvent('onstart', function (e) {
             $.ajax({
-                url: '/api/audio/add_view/'+e.audio.code,
+                url: '/api/audio/add_view/' + e.audio.code,
             });
         });
-        this.audio.addEvent('onend',function(e){
-            if(self.audioToNext && $('#auto-next')[0].checked) {
-                window.location.href = "/play-audio/"+self.audioToNext;
+        this.audio.addEvent('onend', function (e) {
+            if (self.audioToNext && $('#auto-next')[0].checked) {
+                e.player.isLoop = false;
+                window.location.href = "/play-audio/" + self.audioToNext;
             }
         });
         this.audio.start();
     }
 
-    Controller.PlayAudio.prototype.setAudioViewsLabel = function() {
+    Controller.PlayAudio.prototype.setAudioViewsLabel = function () {
         $('#audio_views').html(this.views);
     }
 

@@ -35,6 +35,7 @@ Route::post('test',function (Request $request){
 Route::post('login','UserController@login');
 Route::post('logout','UserController@logout')->middleware('AuthApi');
 Route::post('register','UserController@register');
+
 Route::group(['prefix' => 'audio'], function () {
     Route::post('upload','AudioController@upload');
     Route::get('index/{code}','AudioController@index');
@@ -50,19 +51,28 @@ Route::group(['prefix' => 'nation'], function () {
 Route::group(['prefix' => 'singer'], function () {
     Route::get('index/{id}', 'SingerController@index');
     Route::get('search','SingerController@searchSimilar');
-    Route::post('insert','SingerController@insert');
+    Route::post('insert','SingerController@insert')->middleware('AuthApi');
     Route::get('searchfull','SingerController@searchFull');
 });
 Route::group(['prefix' => 'image'], function () {
+    Route::get('search','ImageController@search');
     Route::get('index/{code}','ImageController@index');
    Route::post('upload','ImageController@upload');
 });
 Route::group(['prefix' => 'type'], function () {
    Route::get('search','TypeController@search');
+   Route::get('searchFull','TypeController@searchSimilar');
    Route::post('insert','TypeController@insert');
 });
 
 Route::group(['prefix' => 'banner'], function () {
    Route::get('get','BannerController@index');
    Route::post('insert','BannerController@index')->middleware('AuthApi');
+});
+
+Route::group(['prefix' => 'playlist'], function () {
+    Route::get('get','PlaylistController@index');
+    Route::post('insert','PlaylistController@create')->middleware('AuthApi');
+    Route::post('add_audio','PlaylistController@addAudio')->middleware('AuthApi');
+    Route::get('getPlaylistByUser','PlaylistController@getPlaylistByUser')->middleware('AuthApi');
 });

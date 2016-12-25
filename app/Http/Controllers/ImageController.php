@@ -17,6 +17,10 @@ class ImageController extends Controller
         $this->image_path = storage_path().'/app/images/';
     }
 
+    public function search(){
+		return Image::orderBy('id','desc')->get();
+	}
+
 	public function index($code){
         $files = File::glob($this->image_path.$code.'.*');
         if (count($files)) {
@@ -44,9 +48,9 @@ class ImageController extends Controller
     	if ( $ext == 'jpg' || $ext == 'png') {
     		$name = md5(File::get($file->getRealPath()));
             $link = '/api/image/index/'.$name;
-            $this->create($link);
+            $image = $this->create($link);
             $file->storeAs('images', $name.'.'.$ext);
-    		return $link;
+    		return $image;
     	}
     	else {
     		$errors = ['file_type' => ['Không phải định dạng jpg hoặc png.']];
