@@ -8,6 +8,7 @@
 
 <link rel="stylesheet" href="/css/w3/w3.css">
 <link rel="stylesheet" type="text/css" href="/css/w3/w3-theme-blue-grey.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Miriam+Libre:400,700|Source+Sans+Pro:200,400,700,600,400italic,700italic">
 
 <link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="/select2-4.0.3/dist/css/select2.min.css">

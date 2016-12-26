@@ -64,6 +64,7 @@ DaMusic.Controller = DaMusic.Controller || {};
         $.ajax({
             url: '/api/banner/get',
             success: function (data) {
+                if(data.length == 0) return;
                 let div = $(`
                     <div id="myCarousel" class="carousel slide" data-ride="carousel">
                     </div>

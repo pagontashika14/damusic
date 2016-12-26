@@ -184,8 +184,9 @@ DaMusic.Controller = DaMusic.Controller || {};
         $('#csm-name').val('');
         $('#csm-sample').val('');
         $('#csm-birthday').val('');
-        $('#csm-nation').val('');
+        $('#csm-nation').$('#csm-nation').select2("val", "");
         $('#csm-description').val('');
+        $('#csm-image').$('#csm-nation').select2("val", "");
         $('#create-singer-modal').modal('toggle');
     }
 

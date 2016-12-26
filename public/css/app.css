@@ -1,8 +1,14 @@
+@font-face {
+    font-family: myFont;
+    src: url(../font/segoeui.ttf);
+}
+
 body {
     background-size: cover!important;
     background-repeat: no-repeat!important;
     background-position: top center !important;
     background-attachment: fixed!important;
+    font-family: "myFont",sans-serif;
 }
 
 #the-grid {
