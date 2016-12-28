@@ -11,6 +11,10 @@ body {
     font-family: "myFont",sans-serif;
 }
 
+h1, h2, h3, h4, h5, h6, .w3-slim, .w3-wide {
+    font-family:"myFont","Segoe UI",Arial,sans-serif;
+}
+
 #the-grid {
     max-width: 980px;
     min-height: 85vh;
