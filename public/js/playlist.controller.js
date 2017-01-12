@@ -169,7 +169,7 @@ DaMusic.Controller = DaMusic.Controller || {};
     }
 
     Controller.Playlist.prototype.initDivHint = function (code, img, name, singers) {
-        let imgLink = img ? img.name : "/api/image/index/124794cb4fbbca1a578d2d474998096a";
+        let imgLink = img ? img.name : "/img/icon2.png";
         let link = '/play-audio/' + code;
         let divHint = $('<div class="audio-hint-element"></div>');
         let aTag = $('<a href="' + link + '" class=""></a>');

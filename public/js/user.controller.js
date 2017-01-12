@@ -64,7 +64,7 @@ DaMusic.Controller = DaMusic.Controller || {};
     }
 
     Controller.User.prototype.initDivPlaylist = function (code, img, name) {
-        let imgLink = img ? img.name : "/api/image/index/124794cb4fbbca1a578d2d474998096a";
+        let imgLink = img ? img.name : "/img/icon2.png";
         let link = '/playlist?code=' + code;
         let divHint = $('<div class="audio-top-element"></div>');
         let aTag = $('<a href="' + link + '" class=""></a>');

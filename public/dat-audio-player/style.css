@@ -114,5 +114,6 @@
 }
 
 .audio-player-playlist-item.highlight-item {
+    background-color: crimson;
     color: white;
 }
