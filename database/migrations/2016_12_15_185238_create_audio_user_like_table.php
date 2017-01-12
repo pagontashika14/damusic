@@ -15,8 +15,13 @@ class CreateAudioUserLikeTable extends Migration
     {
         Schema::create('audio_user_like', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->references('users')->on('id');
-            $table->integer('audio_id')->references('audio')->on('id');
+            $table->integer('user_id');
+            $table->integer('audio_id');
+        });
+
+        Schema::table('audio_user_like', function(Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('audio_id')->references('id')->on('audio');
         });
     }
 

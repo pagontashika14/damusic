@@ -15,9 +15,13 @@ class CreateAudioViewTable extends Migration
     {
         Schema::create('audio_views', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('audio_id')->references('id')->on('audio');
+            $table->integer('audio_id');
             $table->string('unique_string',500);
             $table->timestamps();
+        });
+
+        Schema::table('audio_views', function(Blueprint $table) {
+            $table->foreign('audio_id')->references('id')->on('audio');
         });
     }
 

@@ -18,9 +18,13 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->integer('image_id')->references('id')->on('images')->nullable();
+            $table->integer('image_id')->nullable();
             $table->rememberToken();
             $table->string('api_token',60)->unique();
+        });
+
+        Schema::table('users', function(Blueprint $table) {
+            $table->foreign('image_id')->references('id')->on('images');
         });
     }
 

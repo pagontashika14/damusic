@@ -17,8 +17,13 @@ class CreateAudioTable extends Migration
             $table->increments('id');
             $table->string('code',60)->unique();
             $table->string('name');
-            $table->integer('nation_id')->references('id')->on('nations');
-            $table->integer('user_id')->references('id')->on('users');
+            $table->integer('nation_id');
+            $table->integer('user_id');
+        });
+
+        Schema::table('audio', function(Blueprint $table) {
+            $table->foreign('nation_id')->references('id')->on('nations');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

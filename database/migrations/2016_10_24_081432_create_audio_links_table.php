@@ -15,8 +15,12 @@ class CreateAudioLinksTable extends Migration
     {
         Schema::create('audio_links', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('audio_id')->references('id')->on('audio');
+            $table->integer('audio_id');
             $table->string('name',500)->unique();
+        });
+
+        Schema::table('audio_links', function(Blueprint $table) {
+            $table->foreign('audio_id')->references('id')->on('audio');
         });
     }
 

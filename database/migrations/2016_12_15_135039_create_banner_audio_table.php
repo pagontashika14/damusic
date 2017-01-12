@@ -15,8 +15,13 @@ class CreateBannerAudioTable extends Migration
     {
         Schema::create('banners', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('audio_id')->references('id')->on('audio');
-            $table->integer('image_id')->references('id')->on('images');
+            $table->integer('audio_id');
+            $table->integer('image_id');
+        });
+
+        Schema::table('banners', function(Blueprint $table) {
+            $table->foreign('audio_id')->references('id')->on('audio');
+            $table->foreign('image_id')->references('id')->on('images');
         });
     }
 

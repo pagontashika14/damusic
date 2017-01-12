@@ -15,10 +15,15 @@ class CreateAudioPlaylistTable extends Migration
     {
         Schema::create('audio_playlist', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('audio_id')->references('id')->on('audio');
-            $table->integer('playlist_id')->references('id')->on('playlists');
+            $table->integer('audio_id');
+            $table->integer('playlist_id');
             $table->timestamp('create_time');
             $table->unique(['audio_id', 'playlist_id']);
+        });
+
+        Schema::table('audio_playlist', function(Blueprint $table) {
+            $table->foreign('audio_id')->references('id')->on('audio');
+            $table->foreign('playlist_id')->references('id')->on('playlists');
         });
     }
 

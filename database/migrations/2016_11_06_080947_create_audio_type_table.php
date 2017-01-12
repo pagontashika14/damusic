@@ -15,8 +15,13 @@ class CreateAudioTypeTable extends Migration
     {
         Schema::create('audio_type', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('audio_id')->reference('id')->on('audio');
-            $table->integer('type_id')->reference('id')->on('types');
+            $table->integer('audio_id');
+            $table->integer('type_id');
+        });
+
+        Schema::table('audio_type', function(Blueprint $table) {
+            $table->foreign('audio_id')->references('id')->on('audio');
+            $table->foreign('type_id')->references('id')->on('types');
         });
     }
 

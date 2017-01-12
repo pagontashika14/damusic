@@ -132,6 +132,7 @@ DaMusic.Controller = DaMusic.Controller || {};
         $.ajax({
             url: 'api/singer/search?length=1&search=' + $('#csm-stage-name').val(),
             success: function (data) {
+                if(data.length == 0) return;
                 let text = data[0].text;
                 $('#csm-sample').val(text);
             },
@@ -184,9 +185,9 @@ DaMusic.Controller = DaMusic.Controller || {};
         $('#csm-name').val('');
         $('#csm-sample').val('');
         $('#csm-birthday').val('');
-        $('#csm-nation').$('#csm-nation').select2("val", "");
+        $('#csm-nation').select2("val", "");
         $('#csm-description').val('');
-        $('#csm-image').$('#csm-nation').select2("val", "");
+        $('#csm-image').select2("val", "");
         $('#create-singer-modal').modal('toggle');
     }
 

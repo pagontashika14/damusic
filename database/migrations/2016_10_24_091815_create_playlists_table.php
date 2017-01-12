@@ -17,9 +17,14 @@ class CreatePlaylistsTable extends Migration
             $table->increments('id');
             $table->string('code',60)->unique();
             $table->string('name');
-            $table->integer('user_id')->references('id')->on('users');
-            $table->integer('image_id')->references('id')->on('images')->nullable();
+            $table->integer('user_id');
+            $table->integer('image_id')->nullable();
             $table->text('description')->nullable();
+        });
+
+        Schema::table('playlists', function(Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('image_id')->references('id')->on('images');
         });
     }
 

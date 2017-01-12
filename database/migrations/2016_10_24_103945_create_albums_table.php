@@ -17,9 +17,14 @@ class CreateAlbumsTable extends Migration
             $table->increments('id');
             $table->string('code',60)->unique();
             $table->string('name');
-            $table->integer('singer_id')->references('id')->on('singers');
-            $table->integer('image_id')->references('id')->on('images')->nullable();
+            $table->integer('singer_id');
+            $table->integer('image_id')->nullable();
             $table->text('description')->nullable();
+        });
+
+        Schema::table('albums', function(Blueprint $table) {
+            $table->foreign('singer_id')->references('id')->on('singers');
+            $table->foreign('image_id')->references('id')->on('images');
         });
     }
 

@@ -37,7 +37,7 @@
               <label for="csm-birthday">Ngày sinh/ Năm thành lập:</label>
               <input type="text" class="form-control" id="csm-birthday">
             </div>
-            <img id='csm-image-view' src="/api/image/index/124794cb4fbbca1a578d2d474998096a" alt="image" style="width:180px;height:180px;">
+            <img id='csm-image-view' src="/img/icon2.png" alt="image" style="width:180px;height:180px;">
           </div>
           <div class="col-md-12">
             <div class="form-group">

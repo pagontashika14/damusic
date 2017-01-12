@@ -8,7 +8,7 @@
 	<div class="w3-row">
         <div class="col-md-2">
             <div>
-                <img id='image' src="/api/image/index/124794cb4fbbca1a578d2d474998096a" alt="singer" style="width:100%;">
+                <img id='image' src="/img/icon2.png" alt="singer" style="width:100%;">
             </div>
         </div>
         <div class="col-md-5">

@@ -18,9 +18,14 @@ class CreateSingersTable extends Migration
             $table->string('stage_name');
             $table->string('name')->nullable();
             $table->string('birthday')->nullable();
-            $table->integer('nation_id')->references('id')->on('nations');
-            $table->integer('image_id')->references('id')->on('images')->nullable();
+            $table->integer('nation_id');
+            $table->integer('image_id')->nullable();
             $table->text('description')->nullable();
+        });
+
+        Schema::table('singers', function(Blueprint $table) {
+            $table->foreign('nation_id')->references('id')->on('nations');
+            $table->foreign('image_id')->references('id')->on('images');
         });
     }
 

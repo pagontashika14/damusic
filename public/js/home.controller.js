@@ -6,8 +6,8 @@ DaMusic.Controller = DaMusic.Controller || {};
         this.loadAudioOld();
         this.initBanner();
         this.getTopOfMonth();
-        this.loadTopOfMonthByNation(1,'vietnam-top');
-        this.loadTopOfMonthByNation(2,'korea-top');
+        this.loadTopOfMonthByNation(2,'vietnam-top');
+        this.loadTopOfMonthByNation(3,'korea-top');
         this.loadTopOfMonthByNation(4,'us-top');
     }
 
